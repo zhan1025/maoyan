@@ -19,17 +19,17 @@ export default new Router({
           component: () => import('@/views/index/cinema.vue')
         },
         {
-          path: 'mine',
-          name: 'mine',
-          component: () => import('@/views/index/mine.vue')
-        },
-        {
           path: '',
           redirect: '/film'
         }
       ]
     },
     //  一级路由
+    {
+      path: '/mine',
+      name: 'mine',
+      component: () => import('@/views/index/mine.vue')
+    },
     {
       path: '/city',
       name: 'city',
