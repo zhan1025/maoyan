@@ -1,5 +1,7 @@
 # maoyan
+```
 //  项目使用的是less
+// dev port:9090
 - src
   -- api 页面封装的请求
   -- assets 静态资源存放区
@@ -12,20 +14,20 @@
       -- index
 
   views 页面组件
-      -- index
-          -- movie
-            -- nowplaying
-            -- comingsoon
-          -- cinema
-        -- mine
-      -- city 一级 城市
+  -- index
+    -- movie
+      -- nowplaying
+      -- comingsoon
+    -- cinema
+  -- mine
+  -- city 一级 城市
 
   App.vue 根组件
   main.js 入口
   router.js 路由
   vue.config.js vue-cli自定义配置
   .eslintrc 语法检测配置文件
-
+```
 ## Project setup
 ```
 yarn install

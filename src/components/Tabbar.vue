@@ -1,5 +1,5 @@
 <template>
-  <van-tabbar v-model="active" active-color="#FF5F16" route>
+  <van-tabbar v-model="active" active-color="#F03D37" route>
     <van-tabbar-item
     v-for="tab in tabs"
     :key="tab.id"
