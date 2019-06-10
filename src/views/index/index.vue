@@ -13,9 +13,9 @@ export default {
   data () {
     return {
       tabs: [
-        { id: 1, name: '电影', icon: 'iconfont icon-mive', href: '/film' },
-        { id: 2, name: '影院', icon: 'iconfont icon-cinema', href: '/cinema' },
-        { id: 4, name: '我的', icon: 'iconfont icon-mine', href: '/mine' }
+        { id: 1, name: '电影', icon: 'icon-mive', href: '/film' },
+        { id: 2, name: '影院', icon: 'icon-cinema', href: '/cinema' },
+        { id: 4, name: '我的', icon: 'icon-mine', href: '/mine' }
       ]
     }
   },
