@@ -24,15 +24,11 @@ export default {
   }
 }
 </script>
-<style lang="less" >
-html,body{
-  height: 100%;
-}
-  .index{
-    // position: relative;
-  height: 100%;
+
+<style lang="less">
+.index{
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  height: 100%;
 }
 </style>
