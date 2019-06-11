@@ -32,6 +32,7 @@ export default {
   bottom: 0;
   width: 100%;
   display: flex;
+  background: #fff;
   li{
     display: flex;
     flex: 1 0 auto;
