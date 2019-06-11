@@ -36,9 +36,6 @@ export default{
       return state.citylist.filter(item=>item.isHot)
     }
 
-
-
-
   },
   mutations:{
     setCityList(state,list){
