@@ -20,25 +20,29 @@
             <div class="hot-city">
               <div class="city-index-title">热门城市</div>
               <ul class="city-index-detail">
-                <li class="city-item-detail"  >
-                  <div class="city-item-text">a</div>
+                <li class="city-item-detail" v-for="item in hotList"
+                :key="item.cityId">
+                  <div class="city-item-text"> {{item.name}}</div>
                 </li>
               </ul>
             </div>
           </div>
-          <li class="lv-indexsection" >
-            <p class="lv-indexsection__index">b</p>
+          <li class="lv-indexsection" v-for="city in newCityList"
+          :key="city.pinyin">
+            <p class="lv-indexsection__index">{{city.py}}</p>
             <ul>
-              <li >
-             c
+              <li v-for="cities in city.list"
+              :key="cities.cityId">
+             {{cities.name}}
               </li>
             </ul>
           </li>
         </ul>
         <div class="lv-indexlist__nav">
           <ul>
-            <li>
-         d
+            <li v-for="item in indexList"
+            :key="item">
+               {{item}}
             </li>
           </ul>
         </div>
@@ -47,9 +51,12 @@
   </div>
 </template>
 <script>
-import {mapActions} from 'vuex'
+import {mapActions,mapGetters} from 'vuex'
 export default {
   name:'city',
+  computed:{
+    ...mapGetters('city',['newCityList','indexList','hotList'])
+  },
   methods:{
     ...mapActions('city',['getCityList'])
   },
