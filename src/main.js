@@ -10,7 +10,6 @@ import { Tabbar, TabbarItem,NavBar,Tab, Tabs } from 'vant'
 //  导入了所用插件的所有css，可改，按需导入
 import 'vant/lib/index.css'
 
-
 Vue
   .use(Tabbar)
   .use(TabbarItem)

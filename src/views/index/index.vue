@@ -24,3 +24,11 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+.index{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+</style>
