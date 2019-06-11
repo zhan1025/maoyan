@@ -23,15 +23,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '//at.alicdn.com/t/font_1232452_2twax1bvjnu.css';
 @import '~@/styles/common/mixin.less';
 
 .b_bar {
   .border_top;
-  position: fixed;
-  bottom: 0;
+  // position: fixed;
+  // bottom: 0;
   width: 100%;
   display: flex;
+  background: #fff;
   li{
     display: flex;
     flex: 1 0 auto;
@@ -42,6 +42,9 @@ export default {
     color:#696969;
     &.act_c{
       color:#fd3037;
+    }
+    i{
+      font-size: 25px;
     }
   }
 }
