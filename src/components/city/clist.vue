@@ -36,12 +36,8 @@
           </ul>
         </div>
     </ul>
-<<<<<<< HEAD
-
-=======
 </div>
-       
->>>>>>> develop
+
 </template>
 <script>
 import eventBus from '@/model/eventBus.js'
@@ -55,19 +51,11 @@ export default {
       letter: ''
     }
   },
-<<<<<<< HEAD
   watch: {
     letter () {
       if (this.letter) {
         const element = this.$refs[this.letter][0]
-        console.log(element)
-=======
-  watch:{
-    letter(){
-      if(this.letter){
-        const element=this.$refs[this.letter][0]
         // console.log(element)
->>>>>>> develop
         this.scroll.scrollToElement(element)
       }
     }
@@ -76,16 +64,10 @@ export default {
     eventBus.$on('change', (letter) => {
       this.letter = letter
       console.log(this.letter)
-<<<<<<< HEAD
     })
     this.scroll = new Bscroll(this.$refs.wrapper, {
-      click: true
-=======
-    }),
-    this.scroll=new Bscroll(this.$refs.wrapper,{
       // click:true
-      mouseWheel:true
->>>>>>> develop
+      mouseWheel: true
     })
   }
 }

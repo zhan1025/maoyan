@@ -46,7 +46,6 @@ export default {
 <style lang="less" scoped>
   @import '~@/styles/common/mixin.less';
 
-
 .page-city {
   display: flex;
   flex-direction: column;
