@@ -13,33 +13,35 @@
   </div>
 </template>
 <script>
-import {mapActions,mapGetters} from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import cAlphabet from '@/components/city/cAlphabet.vue'
 import clist from '@/components/city/clist.vue'
 export default {
 
-  name:'city',
+  name: 'city',
 
-  components:{
+  components: {
     cAlphabet,
     clist
   },
 
-  computed:{
-    ...mapGetters('city',['newCityList','indexList','hotList'])
+  computed: {
+    ...mapGetters('city', ['newCityList', 'indexList', 'hotList'])
   },
 
-  methods:{
-    ...mapActions('city',['getCityList'])
+  methods: {
+    ...mapActions('city', ['getCityList'])
   },
 
-  created(){
+  created () {
     this.getCityList()
+  },
+  beforeRouteEnter (to, from, next) {
+    console.log(to, from)
+    next()
   }
 }
 </script>
-
-
 
 <style lang="less" scoped>
   @import '~@/styles/common/mixin.less';
@@ -58,9 +60,9 @@ export default {
   align-items: center;
   .icon-left{
   display: block;
-   height: 94%;
-   width:10%;
-   font-size:16px;
+  height: 94%;
+  width:10%;
+  font-size:16px;
   line-height: 1;
   padding-top:6%;
   }
@@ -92,5 +94,3 @@ export default {
   }
 }
 </style>
-
-
