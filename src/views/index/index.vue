@@ -1,15 +1,17 @@
 <template>
   <div class="index">
-    <router-view></router-view>
+    <keep-alive :include="['cinema', 'film']">
+      <router-view></router-view>
+    </keep-alive>
     <Tabbar :tabs="tabs"></Tabbar>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import Tabbar from '@/components/Tabbar.vue'
 
 export default {
+  name: 'index',
   data () {
     return {
       tabs: [

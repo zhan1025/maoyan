@@ -62,7 +62,7 @@ export default {
     getFilmList ({ commit, state }, isLoadMore) {
       commit('SETLOADING', true)
       Toast.loading({
-        mask: true,
+        mask: false,
         duration: 0, // 展示时长(ms)，值为 0 时，toast 不会消失
         message: '玩命加载中...'
       })

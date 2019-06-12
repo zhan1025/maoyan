@@ -36,52 +36,46 @@
         </div>
     </ul>
 
-       
 </template>
 <script>
-import eventBus from '@/model/eventBus.js' 
+import eventBus from '@/model/eventBus.js'
 import Bscroll from 'better-scroll'
 
-
 export default {
-  name:'clist',
-  props:['newCityList','hotList'],
-  data(){
+  name: 'clist',
+  props: ['newCityList', 'hotList'],
+  data () {
     return {
-      letter:''
+      letter: ''
     }
   },
-  watch:{
-    letter(){
-      if(this.letter){
-        const element=this.$refs[this.letter][0]
+  watch: {
+    letter () {
+      if (this.letter) {
+        const element = this.$refs[this.letter][0]
         console.log(element)
         this.scroll.scrollToElement(element)
       }
     }
   },
-  mounted(){
-    eventBus.$on('change',(letter)=>{
-      this.letter=letter
+  mounted () {
+    eventBus.$on('change', (letter) => {
+      this.letter = letter
       console.log(this.letter)
-    }),
-    this.scroll=new Bscroll(this.$refs.wrapper,{
-      click:true
+    })
+    this.scroll = new Bscroll(this.$refs.wrapper, {
+      click: true
     })
   }
 }
 </script>
-
-
-
-
 <style lang="less" scoped>
 @import '~@/styles/common/mixin.less';
 
 // #box{
 //   overflow-y: scroll;
 // }
- .recommend-city {
+  .recommend-city {
       padding-left: 15px;
       padding-top: 15px;
 

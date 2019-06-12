@@ -34,6 +34,16 @@ export default new Router({
       path: '/city',
       name: 'city',
       component: () => import('@/views/city/index.vue')
+    },
+    {
+      path: '/search',
+      name: 'search',
+      props: true,
+      beforeEnter: (to, from, next) => {
+        console.log(to, from)
+        next()
+      },
+      component: () => import('@/views/search/index.vue')
     }
   ]
 })

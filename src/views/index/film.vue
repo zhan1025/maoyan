@@ -22,6 +22,7 @@ import nowPlaying from '@/components/nowPlaying.vue'
 import comingSoon from '@/components/comingSoon.vue'
 import { Toast } from 'vant'
 export default {
+  name: 'film',
   data () {
     return {
       active: 0
