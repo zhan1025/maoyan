@@ -60,9 +60,9 @@ export default {
   align-items: center;
   .icon-left{
   display: block;
-   height: 94%;
-   width:10%;
-   font-size:16px;
+  height: 94%;
+  width:10%;
+  font-size:16px;
   line-height: 1;
   padding-top:6%;
   }

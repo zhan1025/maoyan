@@ -4,7 +4,6 @@
       <div class="header"><h1>影院</h1></div>
       <div class="shell">
         <div class="t_search">
-<<<<<<< HEAD
           <router-link
             class="city_btn"
             tag="div"
@@ -20,12 +19,6 @@
             }
             }"
           class='search_btn'>
-=======
-          <router-link tag="div" to="/city" class="city_btn">
-            深圳<div class="trangle"></div>
-          </router-link>
-          <div class='search_btn'>
->>>>>>> develop
             <span class="iconfont icon-search">搜索影院</span>
           </router-link>
         </div>
