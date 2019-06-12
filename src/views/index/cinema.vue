@@ -4,9 +4,9 @@
       <div class="header"><h1>影院</h1></div>
       <div class="shell">
         <div class="t_search">
-          <div class="city_btn" @click="toCity">
+          <router-link tag="div" to="/city" class="city_btn">
             深圳<div class="trangle"></div>
-          </div>
+          </router-link>
           <div class='search_btn'>
             <span class="iconfont icon-search">搜索影院</span>
           </div>
