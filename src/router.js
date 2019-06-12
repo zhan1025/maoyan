@@ -47,5 +47,9 @@ export default new Router({
       name: 'city',
       component: () => import('@/views/city/index.vue')
     }
-  ]
+  ],
+  // 控制滚动行为
+  scrollBehavior (to, from, savePosition) {
+    return { x: 0, y: 0 }
+  }
 })

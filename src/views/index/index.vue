@@ -21,6 +21,9 @@ export default {
   },
   components: {
     Tabbar
+  },
+  deactivated () {
+    console.log(111111)
   }
 }
 </script>

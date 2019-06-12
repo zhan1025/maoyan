@@ -5,26 +5,34 @@
         猫眼电影
       </h1>
     </header>
-    <van-tabs v-model="active" animated>
+    <van-tabs
+    v-model="active"
+    animated
+    >
       <van-tab title="正在热映">
         <nowPlaying :filmList="newFilmList" />
       </van-tab>
       <van-tab title="即将上映">
-        <comingSoon />
+        <comingSoon :popularList="newPopularList" :expectedList="newExpectedList" />
       </van-tab>
     </van-tabs>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import nowPlaying from '@/components/nowPlaying.vue'
 import comingSoon from '@/components/comingSoon.vue'
-import { Toast } from 'vant'
+
 export default {
   data () {
     return {
       active: 0
+    }
+  },
+  watch: {
+    active (newVal,oldVal) {
+      this.filmTypeChange(newVal)
     }
   },
   components: {
@@ -32,36 +40,14 @@ export default {
     comingSoon
   },
   computed: {
-    ...mapState('film', ['loading', 'total', 'filmList']),
-    ...mapGetters('film', ['newFilmList'])
+    ...mapGetters('film', ['newFilmList', 'newPopularList', 'newExpectedList'])
   },
   methods: {
-    ...mapActions('film', ['getFilmList']),
-    onScroll () {
-      // 判断滚动条是否已经到底部
-      let filmList = document.querySelector('.van-tabs__content')
-      let scrollTop = filmList.scrollTop // 滚动条距离顶部的距离
-      let clientHeight = filmList.clientHeight // 当前页面的可视高度
-      let scrollHeight = filmList.scrollHeight // 当前页面的总高度
-      if (scrollHeight - clientHeight - scrollTop <= 50) {
-        if (!this.loading) {
-          if (this.newFilmList.length >= this.total) {
-            Toast('兄弟，到底了')
-          } else {
-            this.getFilmList(true)
-          }
-        }
-        // console.log('到底了')
-      }
-    }
+    ...mapMutations('film', ['SETPAGENUM']),
+    ...mapActions('film', ['filmTypeChange']),
   },
-  created () {
-    this.getFilmList()
-    // console.log(this.filmList)
-  },
-  mounted () {
-    let filmList = document.querySelector('.van-tabs__content')
-    filmList.addEventListener('scroll', this.onScroll)
+  beforeDestroy () {
+    this.SETPAGENUM(true)
   }
 }
 </script>
@@ -71,7 +57,7 @@ export default {
   flex: 1;
   overflow: hidden;
   // position: fixed;
-  padding-bottom: 100px;
+  padding-bottom: 50px;
   .navbar{
     // position: fixed;
     // top: 0;
