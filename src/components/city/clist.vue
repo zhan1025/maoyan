@@ -1,5 +1,5 @@
 <template>
-
+  <div ref="wrapper" id='box'>
     <ul class="lv-indexlist__content" id="lv-indexlist__content" >
           <div class="recommend-city">
             <div class="gprs-city">
@@ -20,8 +20,9 @@
               </ul>
             </div>
           </div>
-          <div ref="wrapper" id='box'>
-            <ul>
+
+          <div >
+            <ul >
               <li class="lv-indexsection" v-for="city in newCityList"
               :key="city.pinyin" :ref="city.py">
                 <p class="lv-indexsection__index">{{city.py}}</p>
@@ -35,7 +36,12 @@
           </ul>
         </div>
     </ul>
+<<<<<<< HEAD
 
+=======
+</div>
+       
+>>>>>>> develop
 </template>
 <script>
 import eventBus from '@/model/eventBus.js'
@@ -49,11 +55,19 @@ export default {
       letter: ''
     }
   },
+<<<<<<< HEAD
   watch: {
     letter () {
       if (this.letter) {
         const element = this.$refs[this.letter][0]
         console.log(element)
+=======
+  watch:{
+    letter(){
+      if(this.letter){
+        const element=this.$refs[this.letter][0]
+        // console.log(element)
+>>>>>>> develop
         this.scroll.scrollToElement(element)
       }
     }
@@ -62,9 +76,16 @@ export default {
     eventBus.$on('change', (letter) => {
       this.letter = letter
       console.log(this.letter)
+<<<<<<< HEAD
     })
     this.scroll = new Bscroll(this.$refs.wrapper, {
       click: true
+=======
+    }),
+    this.scroll=new Bscroll(this.$refs.wrapper,{
+      // click:true
+      mouseWheel:true
+>>>>>>> develop
     })
   }
 }

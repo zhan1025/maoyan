@@ -24,11 +24,23 @@ export default new Router({
         }
       ]
     },
-    //  一级路由
     {
       path: '/mine',
-      name: 'mine',
-      component: () => import('@/views/index/mine.vue')
+      component: () => import('@/views/index/mine/index.vue'),
+      children: [{
+        path: 'signup',
+        name: 'signup',
+        component: () => import('@/views/index/mine/signup.vue')
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('@/views/index/mine/login.vue')
+      },
+      {
+        path: '',
+        redirect: 'login'
+      }]
     },
     {
       path: '/city',

@@ -1,10 +1,9 @@
 <template>
   <div class="page-city">
-    <van-nav-bar
-      title="当前城市-"
-      left-text="返回"
-      left-arrow
-    />
+    <div class="city-title">
+      <router-link to='/film' tag="i" class="iconfont icon-left"></router-link>
+      <h5 >当前城市-</h5>
+    </div>
     <div class="city-list">
       <div class="lv-indexlist">
         <clist :hotList="hotList" :newCityList="newCityList"></clist>
@@ -47,10 +46,30 @@ export default {
 <style lang="less" scoped>
   @import '~@/styles/common/mixin.less';
 
+
 .page-city {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.city-title{
+  display: flex;
+  text-align: center;
+  height: 5%;
+  align-items: center;
+  .icon-left{
+  display: block;
+  height: 94%;
+  width:10%;
+  font-size:16px;
+  line-height: 1;
+  padding-top:6%;
+  }
+  h5{
+    flex:1;
+    text-align: center
+  }
 }
 
 .city-list {
@@ -70,7 +89,7 @@ export default {
     &__content {
       flex: 1;
       height: 100%;
-      overflow-y: auto;
+      // overflow-y: auto;
     }
   }
 }
