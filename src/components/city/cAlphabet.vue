@@ -1,10 +1,12 @@
 <template>
     <div class="lv-indexlist__nav">
+
           <ul>
             <li v-for="item in indexList"
             :key="item"
             :ref="item"
             @click="handleLetter"
+
           >
             {{item}}
             </li>
@@ -31,8 +33,10 @@ export default {
 
   methods: {
     handleLetter (e) {
-      console.log(e.target.innerText)
+      // console.log(e.target.innerText)
       eventBus.$emit('change', e.target.innerText)
+
+
     }
   }
 }
