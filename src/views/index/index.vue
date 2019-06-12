@@ -1,17 +1,15 @@
 <template>
   <div class="index">
-    <keep-alive :include="['cinema', 'film']">
-      <router-view></router-view>
-    </keep-alive>
+    <router-view></router-view>
     <Tabbar :tabs="tabs"></Tabbar>
   </div>
 </template>
 
 <script>
+// @ is an alias to /src
 import Tabbar from '@/components/Tabbar.vue'
 
 export default {
-  name: 'index',
   data () {
     return {
       tabs: [
@@ -26,11 +24,15 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-.index{
+<style lang="less" >
+html,body{
+  height: 100%;
+}
+  .index{
+    // position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  overflow: hidden;
 }
 </style>

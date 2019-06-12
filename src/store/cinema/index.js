@@ -21,10 +21,6 @@ export default {
     //  设置请求状态
     loading (state, bol) {
       state.loading = bol
-    },
-    //  清空影院数据，防止相同请求数据重复
-    clearCinema (state) {
-      state.cinemas = []
     }
   },
   actions: {
@@ -33,11 +29,11 @@ export default {
         commit('loading', false)
         Toast.loading({
           duration: 0,
-          message: '玩命加载中...'
+          message: '加载中...'
         })
         axios.get('http://localhost:9090/ajax/cinemaList', {
           params: {
-            day: '2019-06-12',
+            day: '2019-06-10',
             offset: offset || 0,
             limit: 20,
             districtId: -1,
@@ -61,8 +57,7 @@ export default {
               let newList = [...state.cinemas, ...res.cinemas]
               commit('setCinemas', newList)
             } else {
-              // 替换设置影院地址列表
-              commit('setCinemas', res.cinemas)
+              commit('setCinemas', res.cinemas)// 替换设置影院地址列表
             }
             commit('setPaging', res.paging)// 设置请求判断参数
             commit('loading', true)
