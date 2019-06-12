@@ -24,20 +24,38 @@ export default new Router({
         }
       ]
     },
-    //  一级路由
     {
       path: '/mine',
-      name: 'mine',
-      component: () => import('@/views/index/mine.vue')
+      component: () => import('@/views/index/mine/index.vue'),
+      children: [{
+        path: 'signup',
+        name: 'signup',
+        component: () => import('@/views/index/mine/signup.vue')
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('@/views/index/mine/login.vue')
+      },
+      {
+        path: '',
+        redirect: 'login'
+      }]
     },
     {
       path: '/city',
       name: 'city',
       component: () => import('@/views/city/index.vue')
+    },
+    {
+      path: '/search',
+      name: 'search',
+      props: true,
+      beforeEnter: (to, from, next) => {
+        console.log(to, from)
+        next()
+      },
+      component: () => import('@/views/search/index.vue')
     }
-  ],
-  // 控制滚动行为
-  scrollBehavior (to, from, savePosition) {
-    return { x: 0, y: 0 }
-  }
+  ]
 })
