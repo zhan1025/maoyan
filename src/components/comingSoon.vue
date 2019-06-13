@@ -4,10 +4,10 @@
     <div class="expected">
       <p class="title">近期最受期待</p>
       <ul class="expected-list">
-        <li class="expected-item" v-for="popular in popularList" :key="popular.id">
-          <img class="popular-img" :src="popular.img" alt="">
-          <h5 class="popular-name">{{popular.nm}}</h5>
-          <p class="popular-day">{{popular.comingTitle}}</p>
+        <li class="expected-item" v-for="item in popularList" :key="item.id">
+          <img class="popular-img" :src="item.img" alt="">
+          <h5 class="popular-name">{{item.nm}}</h5>
+          <p class="popular-day">{{item.comingTitle}}</p>
         </li>
       </ul>
     </div>
@@ -57,10 +57,12 @@ export default {
     ...mapActions('film', [ 'getPopularList', 'getExpectedList' ]),
     // 监听最受欢迎的滚动条事件
     onPopularScroll () {
-      let scrollWidth = document.querySelector('.expected-list').scrollWidth // 页面总宽度
-      let scrollLeft = document.querySelector('.expected-list').scrollLeft // 滚动条距离左边的距离
-      let clientWidth = document.querySelector('.expected-list').clientWidth // ul 的可视宽度
-      if (scrollWidth - clientWidth - scrollLeft <= 50 && !this.loading) {
+      console.log(11111111)
+      let expectedList = document.querySelector('.expected-list')
+      let scrollWidth = expectedList.scrollWidth // 页面总宽度
+      let scrollLeft = expectedList.scrollLeft // 滚动条距离左边的距离
+      let clientWidth = expectedList.clientWidth // ul 的可视宽度
+      if (scrollWidth - clientWidth - scrollLeft <=50 && !this.loading ) {
         this.getPopularList(true)
       }
     },
@@ -85,16 +87,18 @@ export default {
     this.getExpectedList()
   },
   mounted () {
-    let expectedList = document.querySelector('.van-tabs__content')
+    let expectedList = document.querySelector('.expected-list')
     expectedList.addEventListener('scroll', this.onPopularScroll)
 
-    let filmExpected = document.querySelector('.film-expected')
-    filmExpected.addEventListener('scroll', this.onExpectedScroll)
+    // let filmExpected = document.querySelector('.van-tabs__content')
+    // filmExpected.addEventListener('scroll', this.onExpectedScroll)
   },
   beforeDestroy () {
+    console.log(111111111)
   },
   activated () {
-    let filmExpected = document.querySelector('.van-tabs__content')
+    console.log(111111111)
+    let filmExpected = document.querySelector('expected-list')
     filmExpected.removeEventListener('scroll', this.onExpectedScroll)
 
     let expectedList = document.querySelector('.van-tabs__content')
