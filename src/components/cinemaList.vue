@@ -17,7 +17,17 @@
         <div class="line_ellipsis">{{item.addr}} </div>
         <span class="distance">{{item.distance}}</span>
       </div>
-      <!-- <div class="tags"><span >{{}}</span></div> -->
+      <div class="tags">
+        <span class="tui" v-if="item.tag.allowRefund">退</span>
+        <span class="tui" v-if="item.tag.allowRefund">改签</span>
+        <span class="snack" v-if="item.tag.allowRefund">小吃</span>
+        <span class="snack" v-if="item.tag.allowRefund">折扣卡</span>
+        <span class="tui"
+        v-for="hall in item.tag.hallType"
+        :key="hall">
+        {{hall}}
+        </span>
+      </div>
       <div class="promotion" v-if="item.promotion.cardPromotionTag">
         <img src="@/assets/cart.png" alt="">
         {{item.promotion.cardPromotionTag}}
@@ -96,6 +106,23 @@ export default {
         .distance{
           position: absolute;
           right: 15px;
+        }
+      }
+      .tags{
+        span{
+          display: inline-block;
+          font-size:12px;
+          padding: 2px;
+          margin-left: 2px;
+          border-radius: 2px;
+        }
+        .tui{
+          color:#589DAF;
+          border: 1px solid #589DAF;
+        }
+        .snack{
+          color: #FF9900;
+          border: 1px solid #FF9900;
         }
       }
       .promotion{

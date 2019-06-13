@@ -1,6 +1,6 @@
 // 即将上映电影列表组件
 <template>
-  <div class="film-expected">
+  <div>
     <div class="expected">
       <p class="title">近期最受期待</p>
       <ul class="expected-list">
@@ -40,13 +40,13 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 export default {
-  name: "comingSoon",
-  props:{
+  name: 'comingSoon',
+  props: {
     popularList: Array,
     expectedList: Array
   },
   watch: {
-    expectedList (newVal,oldVal) {
+    expectedList (newVal, oldVal) {
       console.log(newVal)
     }
   },
@@ -54,12 +54,13 @@ export default {
     ...mapState('film', ['loading', 'popularPaging', 'expectedMovieIds'])
   },
   methods: {
-    ...mapActions('film', ['getPopularList', 'getExpectedList' ]),
+    ...mapActions('film', [ 'getPopularList', 'getExpectedList' ]),
     // 监听最受欢迎的滚动条事件
     onPopularScroll () {
-      let scrollWidth = document.querySelector('.expected-list').scrollWidth // 页面总宽度
-      let scrollLeft = document.querySelector('.expected-list').scrollLeft // 滚动条距离左边的距离
-      let clientWidth = document.querySelector('.expected-list').clientWidth // ul 的可视宽度
+      let popularList = document.querySelector('.expected-list')
+      let scrollWidth = popularList.scrollWidth // 页面总宽度
+      let scrollLeft = popularList.scrollLeft // 滚动条距离左边的距离
+      let clientWidth = popularList.clientWidth // ul 的可视宽度
       if (scrollWidth - clientWidth - scrollLeft <=50 && !this.loading ) {
         this.getPopularList(true)
       }
@@ -85,40 +86,32 @@ export default {
     this.getExpectedList()
   },
   mounted () {
-    let expectedList = document.querySelector('.van-tabs__content')
-    expectedList.addEventListener('scroll', this.onPopularScroll)
+    let popularList = document.querySelector('.expected-list')
+    popularList.addEventListener('scroll', this.onPopularScroll)
 
-    let filmExpected = document.querySelector('.film-expected')
-    filmExpected.addEventListener('scroll', this.onExpectedScroll)
+    // let filmExpected = document.querySelector('.van-tabs__content')
+    // filmExpected.addEventListener('scroll', this.onExpectedScroll)
   },
-  beforeDestroy () {
-    console.log(111111111)
-  },
-  activated () {
-    console.log(111111111)
-    let filmExpected = document.querySelector('.van-tabs__content')
-    filmExpected.removeEventListener('scroll', this.onExpectedScroll)
+  // beforeDestroy () {
+  //   console.log(111111111)
+  // },
+  // activated () {
+  //   console.log(111111111)
+  //   let filmExpected = document.querySelector('expected-list')
+  //   filmExpected.removeEventListener('scroll', this.onExpectedScroll)
 
-    let expectedList = document.querySelector('.van-tabs__content')
-    expectedList.removeEventListener('scroll', this.onPopularScroll)
-  }
+  //   let expectedList = document.querySelector('.van-tabs__content')
+  //   expectedList.removeEventListener('scroll', this.onPopularScroll)
+  // }
 }
 </script>
 
 <style lang="less">
-.group-date{
-  padding: 12px 15px 0;
-  margin: 0;
-  font-size: 14px;
-  color: #333;
-}
 .expected{
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px 30px 12px 15px;
+  width: 370px;
+  padding: 12px 0 12px 15px;
   background-color: #fff;
   margin-bottom: 10px;
-  overflow: hidden;
   .title{
     margin: 0 0 12px;
     font-size: 14px;
@@ -126,29 +119,21 @@ export default {
   }
   .expected-list{
     display: flex;
-    overflow: scroll;
-    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
     .expected-item{
-      width: 85px;
       line-height: 16px;
       margin-right: 10px;
       .popular-img{
         width: 85px;
-        height: 115px;
       }
       .popular-name{
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         margin: 0 0 3px;
         font-size: 13px;
         color: #222;
         font-weight: 900;
       }
       .popular-day{
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         margin: 0;
         font-size: 12px;
         color: #999;
@@ -158,4 +143,3 @@ export default {
 
 }
 </style>
-
