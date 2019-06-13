@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="expected">
-      <p class="title">近期最受期待</p>
+      <p class="title">近期最受期待的</p>
       <ul class="expected-list">
         <li class="expected-item" v-for="a in 10" :key="a">
           <img class="popular-img" src="https://p0.meituan.net/170.230/movie/e11213b2676bcf6f4eac41c482af2bdd327884.jpg" alt="">
@@ -25,7 +25,7 @@
               <p>{{ movie.showInfo }}</p>
             </div>
             <div class="buy" v-if="movie.globalReleased">
-              <span class="buy-btn">预购购</span>
+              <span class="buy-btn">预购</span>
             </div>
             <div class="buy" v-else >
               <span class="buy-btn reserve">想看</span>
