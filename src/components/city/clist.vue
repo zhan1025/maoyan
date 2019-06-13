@@ -1,5 +1,5 @@
 <template>
-
+  <div ref="wrapper" id='box'>
     <ul class="lv-indexlist__content" id="lv-indexlist__content" >
           <div class="recommend-city">
             <div class="gprs-city">
@@ -20,8 +20,9 @@
               </ul>
             </div>
           </div>
-          <div ref="wrapper" id='box'>
-            <ul>
+
+          <div >
+            <ul >
               <li class="lv-indexsection" v-for="city in newCityList"
               :key="city.pinyin" :ref="city.py">
                 <p class="lv-indexsection__index">{{city.py}}</p>
@@ -35,53 +36,49 @@
           </ul>
         </div>
     </ul>
+</div>
 
-       
 </template>
 <script>
-import eventBus from '@/model/eventBus.js' 
+import eventBus from '@/model/eventBus.js'
 import Bscroll from 'better-scroll'
 
-
 export default {
-  name:'clist',
-  props:['newCityList','hotList'],
-  data(){
+  name: 'clist',
+  props: ['newCityList', 'hotList'],
+  data () {
     return {
-      letter:''
+      letter: ''
     }
   },
-  watch:{
-    letter(){
-      if(this.letter){
-        const element=this.$refs[this.letter][0]
-        console.log(element)
+  watch: {
+    letter () {
+      if (this.letter) {
+        const element = this.$refs[this.letter][0]
+        // console.log(element)
         this.scroll.scrollToElement(element)
       }
     }
   },
-  mounted(){
-    eventBus.$on('change',(letter)=>{
-      this.letter=letter
+  mounted () {
+    eventBus.$on('change', (letter) => {
+      this.letter = letter
       console.log(this.letter)
-    }),
-    this.scroll=new Bscroll(this.$refs.wrapper,{
-      click:true
+    })
+    this.scroll = new Bscroll(this.$refs.wrapper, {
+      // click:true
+      mouseWheel: true
     })
   }
 }
 </script>
-
-
-
-
 <style lang="less" scoped>
 @import '~@/styles/common/mixin.less';
 
 // #box{
 //   overflow-y: scroll;
 // }
- .recommend-city {
+  .recommend-city {
       padding-left: 15px;
       padding-top: 15px;
 
