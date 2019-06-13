@@ -35,8 +35,6 @@ export default {
     handleLetter (e) {
       // console.log(e.target.innerText)
       eventBus.$emit('change', e.target.innerText)
-
-
     }
   }
 }

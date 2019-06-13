@@ -51,10 +51,11 @@ export default {
       letter: ''
     }
   },
-  watch:{
-    letter(){
-      if(this.letter){
-        const element=this.$refs[this.letter][0]
+
+  watch: {
+    letter () {
+      if (this.letter) {
+        const element = this.$refs[this.letter][0]
         // console.log(element)
         this.scroll.scrollToElement(element)
       }
@@ -64,10 +65,10 @@ export default {
     eventBus.$on('change', (letter) => {
       this.letter = letter
       console.log(this.letter)
-    }),
-    this.scroll=new Bscroll(this.$refs.wrapper,{
+    })
+    this.scroll = new Bscroll(this.$refs.wrapper, {
       // click:true
-      mouseWheel:true
+      mouseWheel: true
     })
   }
 }

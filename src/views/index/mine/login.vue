@@ -39,36 +39,32 @@
   </div>
 </template>
 <script>
-import { setTimeout } from 'timers';
+
+import { setTimeout } from 'timers'
 export default {
-  data(){
+  data () {
     return {
-      active:0,
-      password:'',
-      useraccount:''
+      active: 0,
+      password: '',
+      useraccount: ''
     }
   },
- 
-  methods:{
-    handleLogin(){
-      setTimeout(()=>{
-        let userInfo={
-          useraccount:useraccount,
-          password:password
+
+  methods: {
+    handleLogin () {
+      setTimeout(() => {
+        let userInfo = {
+          useraccount: useraccount,
+          password: password
         }
         console.log(111)
-        window.localStorage.setItem('userInfo',JSON.stringify(userInfo))
-      },2000)
-        
-  
-      
-
+        window.localStorage.setItem('userInfo', JSON.stringify(userInfo))
+      }, 2000)
     }
   }
 
 }
 </script>
-
 
 <style lang="less" scoped>
 // 底部统一样式
@@ -128,7 +124,7 @@ export default {
      width:94%;
      margin:2.5% 3%;
     text-indent: 2%;
-    line-height: 1;    
+    line-height: 1;
     font-size: 16px;
     border-radius: 5px;
     padding: 0;
@@ -174,6 +170,3 @@ export default {
   cursor: pointer;
 }
 </style>
-
-
-

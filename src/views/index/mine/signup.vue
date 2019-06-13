@@ -7,7 +7,6 @@
       <p><i class="iconfont icon-right"></i></p>
       <p>设置密码</p>
     </div>
-    
      <div class='regbox'>
       <input type="text" placeholder="请输入您的手机号"  required name="phonemsg" class="newphone">
      </div>
@@ -19,17 +18,14 @@
   </div>
 </template>
 
-
 <script>
 export default {
-  namespaced:true,
-  name:'signup'
+  namespaced: true,
+  name: 'signup'
 }
 </script>
 
-
 <style lang="less" scoped>
-
 // 短信验证码输入框
 .regbox{
   width:100%;
@@ -41,7 +37,7 @@ export default {
     height: 30px;
     margin:2.5% 3%;
     text-indent: 2%;
-    line-height: 1;    
+    line-height: 1;
     font-size: 16px;
     border-radius: 5px;
     padding: 0;
@@ -87,8 +83,6 @@ export default {
   color: #999;
 }
 </style>
-
-
 
 // // 头部布局
 // .navbar {
@@ -152,6 +146,4 @@ export default {
 //     outline: 0;
 //     }
 // }
-
-
 // </style>
