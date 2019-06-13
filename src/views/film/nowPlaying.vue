@@ -1,6 +1,7 @@
 // 正在上映电影列表组件
 
 <template>
+<div class="now-playing">
   <ul class="film-list">
     <li class="film-item" v-for="film in filmList" :key="film.id">
       <img class="film-img" :src="film.img" alt="">
@@ -19,6 +20,7 @@
       </div>
     </li>
   </ul>
+</div>
 </template>
 
 <script>
@@ -36,6 +38,7 @@ export default {
   },
   methods: {
     ...mapActions('film', ['getFilmList']),
+    // 滚动条监听事件
     onScroll () {
       // 判断滚动条是否已经到底部
       // this.filmListEl = document.querySelector('.van-tabs__content')
@@ -54,97 +57,17 @@ export default {
   },
   created () {
     this.getFilmList()
-    // filmList.addEventListener('scroll', this.onScroll)
   },
+  // 该组件激活监听滚动条
   activated () {
-    this.filmListEl = document.querySelector('.van-tabs__content')
+    console.log('nowPlaying激活')
+    this.filmListEl = document.querySelector('.film-list')
     this.filmListEl.addEventListener('scroll', this.onScroll)
   },
+  // 该组件失活清除监听滚动条事件
   deactivated () {
+    console.log('nowPlaying失活')
     this.filmListEl.removeEventListener('scroll', this.onScroll)
   }
 }
 </script>
-
-<style lang="less">
-@import '~@/styles/common/variable.less';
-@import '~@/styles/common/mixin.less';
-
-.film-list{
-  .film-item{
-    display: flex;
-    padding: 15px;
-    height: 94px;
-    position: relative;
-    align-items: center;
-    .border-bottom;
-    .film-img{
-      width:64px;
-    }
-    .film-info{
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      margin-left: 10px;
-      color: @filmTextColor;
-      font-size: 13px;
-      box-sizing: border-box;
-      padding-right: 60px;
-      overflow: hidden;
-      h2{
-        font-size: 17px;
-        color: #333;
-        font-weight: 700;
-        padding-right: 5px;
-        flex-shrink: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-      p{
-        margin-top: 6px;
-        line-height: 15px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        .grade{
-          margin-left: 5px;
-          font-weight: 700;
-          color: #faaf00;
-          font-size: 15px;
-        }
-        .wish{
-          margin: 0 5px 0 0;
-        }
-      }
-    }
-    .buy{
-      font-size: 12px;
-      position: absolute;
-      right: 24px;
-      top: 0;
-      bottom: 0;
-      height: 27px;
-      margin: auto;
-      .buy-btn{
-        display: block;
-        width: 47px;
-        height: 27px;
-        line-height: 28px;
-        text-align: center;
-        box-sizing: border-box;
-        background-color: #f03d37;
-        color: #fff;
-        margin-left: 6px;
-        border-radius: 4px;
-        white-space: nowrap;
-        font-size: 12px;
-        cursor: pointer;
-      }
-    .reserve{
-      background-color: #3c9fe6
-    }
-    }
-  }
-}
-</style>

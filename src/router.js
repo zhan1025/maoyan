@@ -11,7 +11,23 @@ const router = new Router({
       children: [
         {
           path: 'film',
-          component: () => import('@/views/index/film.vue')
+          component: () => import('@/views/index/film.vue'),
+          children: [
+            {
+              path: 'now',
+              name: 'newPlaying',
+              component: () => import('@/views/film/nowPlaying.vue')
+            },
+            {
+              path: 'coming',
+              name: 'comingSoon',
+              component: () => import('@/views/film/comingSoon.vue')
+            },
+            {
+              path: '',
+              redirect: 'now'
+            }
+          ]
         },
         {
           path: 'cinema',
@@ -28,7 +44,7 @@ const router = new Router({
         },
         {
           path: '',
-          redirect: '/film'
+          redirect: '/film/now'
         }
       ]
     },
@@ -84,6 +100,12 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   } 
-})
+
+  // 控制滚动行为
+  scrollBehavior (to, from, savePosition) {
+    return { x: 0, y: 0 }
+  }
+
+
 
 export default router
