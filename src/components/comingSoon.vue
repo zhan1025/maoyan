@@ -2,12 +2,12 @@
 <template>
   <div class="film-expected">
     <div class="expected">
-      <p class="title">近期最受期待的</p>
+      <p class="title">近期最受期待</p>
       <ul class="expected-list">
-        <li class="expected-item" v-for="item in popularList" :key="item.id">
-          <img class="popular-img" :src="item.img" alt="">
-          <h5 class="popular-name">{{item.nm}}</h5>
-          <p class="popular-day">{{item.comingTitle}}</p>
+        <li class="expected-item" v-for="popular in popularList" :key="popular.id">
+          <img class="popular-img" :src="popular.img" alt="">
+          <h5 class="popular-name">{{popular.nm}}</h5>
+          <p class="popular-day">{{popular.comingTitle}}</p>
         </li>
       </ul>
     </div>
