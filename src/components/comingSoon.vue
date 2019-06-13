@@ -92,10 +92,8 @@ export default {
     filmExpected.addEventListener('scroll', this.onExpectedScroll)
   },
   beforeDestroy () {
-    console.log(111111111)
   },
   activated () {
-    console.log(111111111)
     let filmExpected = document.querySelector('.van-tabs__content')
     filmExpected.removeEventListener('scroll', this.onExpectedScroll)
 
