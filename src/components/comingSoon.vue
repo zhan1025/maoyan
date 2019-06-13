@@ -11,22 +11,96 @@
         </li>
       </ul>
     </div>
-    <ul class="film-list">
-      <li class="film-item">
-        <img class="film-img">
-        <div class="film-info">
-          <h2>{ film.nm }</h2>
-          <p><span class="grade wish">{ film.wish }</span>人想看</p>
-          <p class="actor">主演: { film.star }</p>
-          <p>{ film.showInfo }</p>
-        </div>
-        <div class="buy-btn reserve" >
-          预购
-        </div>
-      </li>
-    </ul>
+    <ul>
+      <li v-for="item in expectedList" :key="item.day">
+        <p class="group-date">{{ item.day }}</p>
+        <ul class="film-list">
+          <li class="film-item" v-for="movie in item.movies" :key="movie.id">
+            <img class="film-img" :src="movie.img" alt="">
+            <div class="film-info">
+              <h2>{{ movie.nm }}</h2>
+              <p v-if="movie.sc">观众评<span class="grade">{{ movie.sc }}</span></p>
+              <p v-else><span class="grade wish">{{ movie.wish }}</span>人想看</p>
+              <p class="actor" v-if="movie.star">主演: {{ movie.star }}</p>
+              <p>{{ movie.showInfo }}</p>
+            </div>
+            <div class="buy" v-if="movie.globalReleased">
+              <span class="buy-btn">预购购</span>
+            </div>
+            <div class="buy" v-else >
+              <span class="buy-btn reserve">想看</span>
+            </div>
+          </li>
+        </ul>
   </div>
 </template>
+
+
+<script>
+import { mapActions, mapState } from 'vuex'
+export default {
+  name: "comingSoon",
+  props:{
+    popularList: Array,
+    expectedList: Array
+  },
+  watch: {
+    expectedList (newVal,oldVal) {
+      console.log(newVal)
+    }
+  },
+  computed: {
+    ...mapState('film', ['loading', 'popularPaging', 'expectedMovieIds'])
+  },
+  methods: {
+    ...mapActions('film', ['getPopularList', 'getExpectedList' ]),
+    // 监听最受欢迎的滚动条事件
+    onPopularScroll () {
+      let scrollWidth = document.querySelector('.expected-list').scrollWidth // 页面总宽度
+      let scrollLeft = document.querySelector('.expected-list').scrollLeft // 滚动条距离左边的距离
+      let clientWidth = document.querySelector('.expected-list').clientWidth // ul 的可视宽度
+      if (scrollWidth - clientWidth - scrollLeft <=50 && !this.loading ) {
+        this.getPopularList(true)
+      }
+    },
+    onExpectedScroll () {
+      // 判断滚动条是否已经到底部
+      let filmList = document.querySelector('.van-tabs__content')
+      let scrollTop = filmList.scrollTop // 滚动条距离顶部的距离
+      let clientHeight = filmList.clientHeight // 当前页面的可视高度
+      let scrollHeight = filmList.scrollHeight // 当前页面的总高度
+      if (scrollHeight - clientHeight - scrollTop <= 50 && !this.loading) {
+        if (this.expectedList.length >= this.expectedMovieIds.length) {
+          Toast('兄弟，到底了')
+        } else {
+          this.getExpectedList(true)
+        }
+        // console.log('到底了')
+      }
+    }
+  },
+  created () {
+    this.getPopularList()
+    this.getExpectedList()
+  },
+  mounted () {
+    let expectedList = document.querySelector('.van-tabs__content')
+    expectedList.addEventListener('scroll', this.onPopularScroll)
+
+    let filmExpected = document.querySelector('.film-expected')
+    filmExpected.addEventListener('scroll', this.onExpectedScroll)
+  },
+  beforeDestroy () {
+  },
+  activated () {
+    let filmExpected = document.querySelector('.van-tabs__content')
+    filmExpected.removeEventListener('scroll', this.onExpectedScroll)
+
+    let expectedList = document.querySelector('.van-tabs__content')
+    expectedList.removeEventListener('scroll', this.onPopularScroll)
+  }
+}
+</script>
 
 <style lang="less">
 .expected{
