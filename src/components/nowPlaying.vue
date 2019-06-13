@@ -25,6 +25,40 @@
 export default {
   props: {
     filmList: Array
+  },
+  computed: {
+    ...mapGetters('film', ['newFilmList']),
+    ...mapState('film', ['loading', 'total'])
+  },
+  methods: {
+    ...mapActions('film', ['getFilmList',]),
+    onScroll () {
+      // 判断滚动条是否已经到底部
+      let filmList = document.querySelector('.van-tabs__content')
+      let scrollTop = filmList.scrollTop // 滚动条距离顶部的距离
+      let clientHeight = filmList.clientHeight // 当前页面的可视高度
+      let scrollHeight = filmList.scrollHeight // 当前页面的总高度
+      if (scrollHeight - clientHeight - scrollTop <= 50 && !this.loading) {
+        if (this.newFilmList.length >= this.total) {
+          Toast('兄弟，到底了')
+        } else {
+          this.getFilmList(true)
+        }
+        // console.log('到底了')
+      }
+    }
+  },
+  created () {
+    this.getFilmList()
+    let filmList = document.querySelector('.van-tabs__content')
+    filmList.addEventListener('scroll', this.onScroll)
+  },
+  activated () {
+    let filmList = document.querySelector('.van-tabs__content')
+    filmList.addEventListener('scroll', this.onScroll)
+  },
+  deactivated () {
+    filmList.removeEventListener('scroll', this.onScroll)
   }
 }
 </script>

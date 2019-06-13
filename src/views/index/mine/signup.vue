@@ -7,7 +7,6 @@
       <p><i class="iconfont icon-right"></i></p>
       <p>设置密码</p>
     </div>
-
      <div class='regbox'>
       <input type="text" placeholder="请输入您的手机号"  required name="phonemsg" class="newphone">
      </div>
@@ -27,7 +26,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 // 短信验证码输入框
 .regbox{
   width:100%;
@@ -148,3 +146,4 @@ export default {
 //     outline: 0;
 //     }
 // }
+// </style>

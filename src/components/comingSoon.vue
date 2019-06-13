@@ -57,11 +57,10 @@ export default {
     ...mapActions('film', [ 'getPopularList', 'getExpectedList' ]),
     // 监听最受欢迎的滚动条事件
     onPopularScroll () {
-      console.log(11111111)
-      let expectedList = document.querySelector('.expected-list')
-      let scrollWidth = expectedList.scrollWidth // 页面总宽度
-      let scrollLeft = expectedList.scrollLeft // 滚动条距离左边的距离
-      let clientWidth = expectedList.clientWidth // ul 的可视宽度
+      let popularList = document.querySelector('.expected-list')
+      let scrollWidth = popularList.scrollWidth // 页面总宽度
+      let scrollLeft = popularList.scrollLeft // 滚动条距离左边的距离
+      let clientWidth = popularList.clientWidth // ul 的可视宽度
       if (scrollWidth - clientWidth - scrollLeft <=50 && !this.loading ) {
         this.getPopularList(true)
       }
@@ -87,23 +86,23 @@ export default {
     this.getExpectedList()
   },
   mounted () {
-    let expectedList = document.querySelector('.expected-list')
-    expectedList.addEventListener('scroll', this.onPopularScroll)
+    let popularList = document.querySelector('.expected-list')
+    popularList.addEventListener('scroll', this.onPopularScroll)
 
     // let filmExpected = document.querySelector('.van-tabs__content')
     // filmExpected.addEventListener('scroll', this.onExpectedScroll)
   },
-  beforeDestroy () {
-    console.log(111111111)
-  },
-  activated () {
-    console.log(111111111)
-    let filmExpected = document.querySelector('expected-list')
-    filmExpected.removeEventListener('scroll', this.onExpectedScroll)
+  // beforeDestroy () {
+  //   console.log(111111111)
+  // },
+  // activated () {
+  //   console.log(111111111)
+  //   let filmExpected = document.querySelector('expected-list')
+  //   filmExpected.removeEventListener('scroll', this.onExpectedScroll)
 
-    let expectedList = document.querySelector('.van-tabs__content')
-    expectedList.removeEventListener('scroll', this.onPopularScroll)
-  }
+  //   let expectedList = document.querySelector('.van-tabs__content')
+  //   expectedList.removeEventListener('scroll', this.onPopularScroll)
+  // }
 }
 </script>
 
