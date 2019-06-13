@@ -58,12 +58,10 @@ export default {
     filmList.addEventListener('scroll', this.onScroll)
   },
   activated () {
-    console.log(111111111)
     let filmList = document.querySelector('.van-tabs__content')
     filmList.addEventListener('scroll', this.onScroll)
   },
   deactivated () {
-    console.log(1111111)
     filmList.removeEventListener('scroll', this.onScroll)
   }
 }

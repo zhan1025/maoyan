@@ -1,47 +1,46 @@
 <template>
-     <div class="lv-indexlist__nav">
+    <div class="lv-indexlist__nav">
+
           <ul>
             <li v-for="item in indexList"
             :key="item"
             :ref="item"
             @click="handleLetter"
-           >
-               {{item}}
+
+          >
+            {{item}}
             </li>
           </ul>
-        </div>
+    </div>
 </template>
-
 
 <script>
 import eventBus from '@/model/eventBus.js'
 export default {
-  name:'cAlphabet',
+  name: 'cAlphabet',
 
-  props:['indexList'],
+  props: ['indexList'],
 
-   data() {
+  data () {
     return {
       touchStatus: false
     }
   },
   //  updated() {
   //   this.startY = this.$refs['A'][0].offsetTop
-  
+
   // },
 
-  methods:{
-    handleLetter(e){
+  methods: {
+    handleLetter (e) {
       // console.log(e.target.innerText)
-      eventBus.$emit('change',e.target.innerText)
+      eventBus.$emit('change', e.target.innerText)
 
-    },
+
+    }
   }
 }
 </script>
-
-
-
 
 <style lang="less" scoped>
 .lv-indexlist {
