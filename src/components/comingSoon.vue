@@ -32,9 +32,10 @@
             </div>
           </li>
         </ul>
+      </li>
+    </ul>
   </div>
 </template>
-
 
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -59,7 +60,7 @@ export default {
       let scrollWidth = document.querySelector('.expected-list').scrollWidth // 页面总宽度
       let scrollLeft = document.querySelector('.expected-list').scrollLeft // 滚动条距离左边的距离
       let clientWidth = document.querySelector('.expected-list').clientWidth // ul 的可视宽度
-      if (scrollWidth - clientWidth - scrollLeft <= 50 && !this.loading ) {
+      if (scrollWidth - clientWidth - scrollLeft <= 50 && !this.loading) {
         this.getPopularList(true)
       }
     },
