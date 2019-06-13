@@ -19,9 +19,9 @@
       </div>
       <div class="tags">
         <span class="tui" v-if="item.tag.allowRefund">退</span>
-        <span class="tui" v-if="item.tag.allowRefund">改签</span>
-        <span class="snack" v-if="item.tag.allowRefund">小吃</span>
-        <span class="snack" v-if="item.tag.allowRefund">折扣卡</span>
+        <span class="tui" v-if="item.tag.endorse">改签</span>
+        <span class="snack" v-if="item.tag.snack">小吃</span>
+        <span class="snack" v-if="item.tag.vipTag">折扣卡</span>
         <span class="tui"
         v-for="hall in item.tag.hallType"
         :key="hall">
@@ -58,7 +58,6 @@ export default {
       let result = height - cHeight - scroll
       if (result <= 0 && this.paging.hasMore) {
         this.$emit('scroll')
-        console.log(1111)
       }
     }
   },
@@ -85,6 +84,7 @@ export default {
       justify-content: space-between;
       min-width: 382px;
       padding: 13px 15px 13px  0;
+      border-bottom: 1px solid #e8e8e8;
       margin-left: 16px;
       div{
         margin-top: 7px;
@@ -100,11 +100,13 @@ export default {
         display: flex;
         font-size: 13px;
         color: #666;
+        align-content: center;
+        justify-content: space-between;
         div{
-          width: 270px;
+          min-width: 270px;
           }
         .distance{
-          position: absolute;
+          flex: 0 1;
           right: 15px;
         }
       }

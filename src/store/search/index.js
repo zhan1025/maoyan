@@ -9,6 +9,10 @@ export default {
     //  设置搜索结果
     setResult (state, payload) {
       state.searchResult = payload
+    },
+    //  清空搜索数据
+    clear (state) {
+      state.searchResult = []
     }
   },
   actions: {
@@ -22,8 +26,9 @@ export default {
       })
         .then(res => res.data)
         .then(res => {
-          if (res) {
-            commit('setResult', res)
+          if (res.cinemas === undefined) {
+            let arr = []
+            commit('setResult', arr)
           } else {
             commit('setResult', res.cinemas.list)
           }
