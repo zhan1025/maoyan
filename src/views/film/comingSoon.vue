@@ -1,5 +1,6 @@
 // 即将上映电影列表组件
 <template>
+<div class="coming-soon">
   <div class="film-expected">
     <div class="expected">
       <p class="title">近期最受期待</p>
@@ -24,17 +25,18 @@
               <p class="actor" v-if="movie.star">主演: {{ movie.star }}</p>
               <p>{{ movie.showInfo }}</p>
             </div>
-            <div class="buy" v-if="movie.globalReleased">
-              <span class="buy-btn">预购</span>
+            <div class="buy" v-if="movie.showst === 4">
+              <span class="buy-btn reserve">预购</span>
             </div>
             <div class="buy" v-else >
-              <span class="buy-btn reserve">想看</span>
+              <span class="buy-btn want">想看</span>
             </div>
           </li>
         </ul>
       </li>
     </ul>
   </div>
+</div>
 </template>
 
 <script>
@@ -45,16 +47,16 @@ export default {
     popularList: Array,
     expectedList: Array
   },
-  watch: {
-    expectedList (newVal, oldVal) {
-      console.log(newVal)
-    }
-  },
+  // watch: {
+  //   expectedList (newVal, oldVal) {
+  //     console.log(newVal)
+  //   }
+  // },
   computed: {
     ...mapState('film', ['loading', 'popularPaging', 'expectedMovieIds'])
   },
   methods: {
-    ...mapActions('film', ['getPopularList', 'getExpectedList' ]),
+    ...mapActions('film', [ 'getPopularList', 'getExpectedList' ]),
     // 监听最受欢迎的滚动条事件
     onPopularScroll () {
       let popularList = document.querySelector('.expected-list')
@@ -65,44 +67,38 @@ export default {
         this.getPopularList(true)
       }
     },
+    // 监听竖向滚动条
     onExpectedScroll () {
       // 判断滚动条是否已经到底部
-      let filmList = document.querySelector('.van-tabs__content')
+      let filmList = document.querySelector('.film-expected')
       let scrollTop = filmList.scrollTop // 滚动条距离顶部的距离
       let clientHeight = filmList.clientHeight // 当前页面的可视高度
       let scrollHeight = filmList.scrollHeight // 当前页面的总高度
       if (scrollHeight - clientHeight - scrollTop <= 50 && !this.loading) {
-        if (this.expectedList.length >= this.expectedMovieIds.length) {
-          Toast('兄弟，到底了')
-        } else {
-          this.getExpectedList(true)
-        }
-        // console.log('到底了')
+        this.getExpectedList(true)
       }
+      // console.log('到底了')
     }
   },
   created () {
     this.getPopularList()
     this.getExpectedList()
   },
-  mounted () {
-    let popularList = document.querySelector('.expected-list')
-    popularList.addEventListener('scroll', this.onPopularScroll)
+  // 该组件激活监听滚动条
+  activated () {
+    console.log('comingSoon激活')
+    this.popularListEl = document.querySelector('.expected-list')
+    this.popularListEl.addEventListener('scroll', this.onPopularScroll)
 
-    // let filmExpected = document.querySelector('.van-tabs__content')
-    // filmExpected.addEventListener('scroll', this.onExpectedScroll)
+    this.filmExpectedEl = document.querySelector('.film-expected')
+    this.filmExpectedEl.addEventListener('scroll', this.onExpectedScroll)
+  },
+  // 该组件失活清除监听滚动条事件
+  deactivated () {
+    console.log('comingSoon失活')
+    this.popularListEl.removeEventListener('scroll', this.onPopularScroll)
+    this.filmExpectedEl.removeEventListener('scroll', this.onExpectedScroll)
   }
-  // beforeDestroy () {
-  //   console.log(111111111)
-  // },
-  // activated () {
-  //   console.log(111111111)
-  //   let filmExpected = document.querySelector('expected-list')
-  //   filmExpected.removeEventListener('scroll', this.onExpectedScroll)
-
-  //   let expectedList = document.querySelector('.van-tabs__content')
-  //   expectedList.removeEventListener('scroll', this.onPopularScroll)
-  // }
 }
 </script>
 
