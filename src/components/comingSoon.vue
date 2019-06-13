@@ -25,7 +25,7 @@
               <p>{{ movie.showInfo }}</p>
             </div>
             <div class="buy" v-if="movie.globalReleased">
-              <span class="buy-btn">预购</span>
+              <span class="buy-btn">预购购</span>
             </div>
             <div class="buy" v-else >
               <span class="buy-btn reserve">想看</span>
