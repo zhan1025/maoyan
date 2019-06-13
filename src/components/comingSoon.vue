@@ -1,6 +1,6 @@
 // 即将上映电影列表组件
 <template>
-  <div class="film-expected">
+  <div>
     <div class="expected">
       <p class="title">近期最受期待</p>
       <ul class="expected-list">
@@ -32,10 +32,9 @@
             </div>
           </li>
         </ul>
-      </li>
-    </ul>
   </div>
 </template>
+
 
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -104,19 +103,11 @@ export default {
 </script>
 
 <style lang="less">
-.group-date{
-  padding: 12px 15px 0;
-  margin: 0;
-  font-size: 14px;
-  color: #333;
-}
 .expected{
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px 30px 12px 15px;
+  width: 370px;
+  padding: 12px 0 12px 15px;
   background-color: #fff;
   margin-bottom: 10px;
-  overflow: hidden;
   .title{
     margin: 0 0 12px;
     font-size: 14px;
@@ -124,29 +115,21 @@ export default {
   }
   .expected-list{
     display: flex;
-    overflow: scroll;
-    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
     .expected-item{
-      width: 85px;
       line-height: 16px;
       margin-right: 10px;
       .popular-img{
         width: 85px;
-        height: 115px;
       }
       .popular-name{
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         margin: 0 0 3px;
         font-size: 13px;
         color: #222;
         font-weight: 900;
       }
       .popular-day{
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         margin: 0;
         font-size: 12px;
         color: #999;
@@ -156,4 +139,3 @@ export default {
 
 }
 </style>
-

@@ -4,12 +4,23 @@
       <div class="header"><h1>影院</h1></div>
       <div class="shell">
         <div class="t_search">
-          <div class="city_btn" @click="toCity">
+          <router-link
+            class="city_btn"
+            tag="div"
+            to="/city">
             深圳<div class="trangle"></div>
-          </div>
-          <div class='search_btn'>
+          </router-link>
+          <router-link
+          tag="div"
+          :to="{
+            path:'/search',
+            query: {
+              searchtype: 'cinema'
+            }
+            }"
+          class='search_btn'>
             <span class="iconfont icon-search">搜索影院</span>
-          </div>
+          </router-link>
         </div>
       </div>
         <div class="select">
@@ -28,29 +39,35 @@
 
 <script>
 import cinemaList from '@/components/cinemaList.vue'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 export default {
+  name: 'cinema',
   components: {
     cinemaList
   },
   computed: {
-    ...mapState('cinema', ['cinemas', 'paging'])
+    ...mapState('cinema', ['paging', 'cinemas'])
   },
   methods: {
+    ...mapMutations('cinema', ['clearCinema']),
     ...mapActions('cinema', ['getCinemaList']),
     hasMore () {
-      console.log()
       if (this.paging.hasMore) {
         let offset = this.paging.offset + 20
         this.getCinemaList(offset)
       }
-    },
-    toCity () {
-      console.log(this.$router)
     }
+    // ,//编程式导航
+    // toCity () {
+    //   this.$router.push('/city')
+    // }
   },
   created () {
     this.getCinemaList()
+  },
+  destroyed () {
+    //  推出页面请空页面数据
+    this.clearCinema()
   }
 }
 </script>
