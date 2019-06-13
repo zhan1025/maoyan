@@ -80,7 +80,11 @@ const router = new Router({
         next()
       },
       component: () => import('@/views/search/index.vue')
-    }]
+    }],
+  // 控制滚动行为
+  scrollBehavior (to, from, savePosition) {
+    return { x: 0, y: 0 }
+  }
 })
 
 router.beforeEach((to, from, next) => {
@@ -99,13 +103,7 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     next()
-  } 
-
-  // 控制滚动行为
-  scrollBehavior (to, from, savePosition) {
-    return { x: 0, y: 0 }
   }
-
-
+})
 
 export default router
