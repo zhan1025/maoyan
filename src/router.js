@@ -11,7 +11,23 @@ export default new Router({
       children: [
         {
           path: 'film',
-          component: () => import('@/views/index/film.vue')
+          component: () => import('@/views/index/film.vue'),
+          children: [
+            {
+              path: 'now',
+              name: 'newPlaying',
+              component: () => import('@/views/film/nowPlaying.vue')
+            },
+            {
+              path: 'coming',
+              name: 'comingSoon',
+              component: () => import('@/views/film/comingSoon.vue')
+            },
+            {
+              path: '',
+              redirect: 'now'
+            }
+          ]
         },
         {
           path: 'cinema',
@@ -20,7 +36,7 @@ export default new Router({
         },
         {
           path: '',
-          redirect: '/film'
+          redirect: '/film/now'
         }
       ]
     },
@@ -57,5 +73,9 @@ export default new Router({
       },
       component: () => import('@/views/search/index.vue')
     }
-  ]
+  ],
+  // 控制滚动行为
+  scrollBehavior (to, from, savePosition) {
+    return { x: 0, y: 0 }
+  }
 })

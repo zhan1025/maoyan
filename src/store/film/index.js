@@ -185,20 +185,24 @@ export default {
       let arr = state.expectedMovieIds.slice((state.pageNum - 1) * state.pageSize, state.pageNum * state.pageSize)
       let obj = arr.join(',')
       if (isLoadMore) {
-        axios.get('http://localhost:9090/ajax/comingList', {
-          params: {
-            ci: 30,
-            token: '',
-            limit: 10,
-            movieIds: obj
-          }
-        }).then(res => {
-          let newList = [ ...state.expectedList, ...res.data.coming ]
-          commit('SETEXPECTEDLIST', newList)
-          // commit('SETPAGENUM')
-          commit('SETLOADING', false)
-          Toast.clear()
-        })
+        if (arr.length > 0) {
+          axios.get('http://localhost:9090/ajax/moreComingList', {
+            params: {
+              ci: 30,
+              token: '',
+              limit: 10,
+              movieIds: obj
+            }
+          }).then(res => {
+            let newList = [ ...state.expectedList, ...res.data.coming ]
+            commit('SETEXPECTEDLIST', newList)
+            commit('SETPAGENUM')
+            commit('SETLOADING', false)
+            Toast.clear()
+          })
+        } else {
+          Toast('你看个电影还想两年后看吗')
+        }
       } else {
         axios.get('http://localhost:9090/ajax/comingList?ci=30&token=&limit=10')
           .then(response => {
@@ -207,7 +211,7 @@ export default {
             // 请求完成 设置loading为false
             commit('SETLOADING', false)
             // 设置页码
-            // commit('SETPAGENUM')
+            commit('SETPAGENUM')
             // 设置最多请求电影列表的总数
             commit('SETTOTAL', res.total)
             // 设置请求带过去的电影id
@@ -215,30 +219,30 @@ export default {
             Toast.clear()
           })
       }
-    },
-    // 影片类型切换
-    filmTypeChange ({ commit, dispatch }, index) {
-      if (index === 0) {
-        // 先清空旧的影片数据
-        commit('SETPOPULARLIST', [])
-        commit('SETEXPECTEDLIST', [])
-        // 还要清空一下页码数
-        commit('SETPAGENUM', true)
-        // 清空最受期待数据里面的 offset
-        commit('SETOFFSET')
-        // 再获取正在热映数据
-        dispatch('getFilmList')
-      } else if (index === 1) {
-        // 先清空旧的影片数据
-        commit('SETFILMLIST', [])
-        // 还要清空一下页码数
-        commit('SETPAGENUM', true)
-        // 清空最受期待数据里面的 offset
-        commit('SETOFFSET')
-        // 再获取正在即将上映数据和最受期待数据
-        dispatch('getPopularList')
-        dispatch('getExpectedList')
-      }
     }
+    // 影片类型切换
+    // filmTypeChange ({ commit, dispatch }, index) {
+    //   if (index === 0) {
+    //     // 先清空旧的影片数据
+    //     commit('SETPOPULARLIST', [])
+    //     commit('SETEXPECTEDLIST', [])
+    //     // 还要清空一下页码数
+    //     commit('SETPAGENUM', true)
+    //     // 清空最受期待数据里面的 offset
+    //     commit('SETOFFSET')
+    //     // 再获取正在热映数据
+    //     dispatch('getFilmList')
+    //   } else if (index === 1) {
+    //     // 先清空旧的影片数据
+    //     commit('SETFILMLIST', [])
+    //     // 还要清空一下页码数
+    //     commit('SETPAGENUM', true)
+    //     // 清空最受期待数据里面的 offset
+    //     commit('SETOFFSET')
+    //     // 再获取正在即将上映数据和最受期待数据
+    //     dispatch('getPopularList')
+    //     dispatch('getExpectedList')
+    //   }
+    // }
   }
 }
