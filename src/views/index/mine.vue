@@ -14,7 +14,7 @@
 
   </van-tab>
   <van-tab title="手机验证登录">内容 2</van-tab>
- 
+
 </van-tabs>
      <ul class="subline">
         <li><a href="//i.meituan.com/account/signup">立即注册</a> </li>
@@ -33,14 +33,13 @@
 </template>
 <script>
 export default {
-  
-  data(){
+
+  data () {
     return {
-      active:0
+      active: 0
     }
   },
-  methods:{
-
+  methods: {
   }
 }
 </script>
@@ -59,8 +58,8 @@ export default {
     font-weight: lighter;
     text-align: center;
     };
-   .nav-wrap-left {
-  height: 100%;
+    .nav-wrap-left {
+    height: 100%;
     a.back {
     height:100%;
     width: 4.02rem;
@@ -72,9 +71,7 @@ export default {
       font-size:2rem
     }
     };
-
-    
- }
-};
+  }
+}
 
 </style>
