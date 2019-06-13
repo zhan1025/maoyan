@@ -51,22 +51,19 @@ export default {
   methods: {
     ...mapMutations('cinema', ['clearCinema']),
     ...mapActions('cinema', ['getCinemaList']),
+    //  获取更多的影院数据
     hasMore () {
       if (this.paging.hasMore) {
         let offset = this.paging.offset + 20
         this.getCinemaList(offset)
       }
     }
-    // ,//编程式导航
-    // toCity () {
-    //   this.$router.push('/city')
-    // }
   },
   created () {
     this.getCinemaList()
   },
   destroyed () {
-    //  推出页面请空页面数据
+    //  退出页面，清空页面数据
     this.clearCinema()
   }
 }
@@ -80,11 +77,6 @@ export default {
   overflow: hidden;
 }
   .top{
-    // position: fixed;
-    // z-index: 99;
-    // top: 0;
-    // width: 100%;
-    // flex: 1;
     .header{
       background: #e54847;
       h1{

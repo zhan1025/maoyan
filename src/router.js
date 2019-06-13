@@ -51,10 +51,6 @@ export default new Router({
       path: '/search',
       name: 'search',
       props: true,
-      beforeEnter: (to, from, next) => {
-        console.log(to, from)
-        next()
-      },
       component: () => import('@/views/search/index.vue')
     }
   ]
