@@ -40,13 +40,13 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 export default {
-  name: "comingSoon",
-  props:{
+  name: 'comingSoon',
+  props: {
     popularList: Array,
     expectedList: Array
   },
   watch: {
-    expectedList (newVal,oldVal) {
+    expectedList (newVal, oldVal) {
       console.log(newVal)
     }
   },
@@ -54,13 +54,13 @@ export default {
     ...mapState('film', ['loading', 'popularPaging', 'expectedMovieIds'])
   },
   methods: {
-    ...mapActions('film', ['getPopularList', 'getExpectedList' ]),
+    ...mapActions('film', [ 'getPopularList', 'getExpectedList' ]),
     // 监听最受欢迎的滚动条事件
     onPopularScroll () {
       let scrollWidth = document.querySelector('.expected-list').scrollWidth // 页面总宽度
       let scrollLeft = document.querySelector('.expected-list').scrollLeft // 滚动条距离左边的距离
       let clientWidth = document.querySelector('.expected-list').clientWidth // ul 的可视宽度
-      if (scrollWidth - clientWidth - scrollLeft <=50 && !this.loading ) {
+      if (scrollWidth - clientWidth - scrollLeft <= 50 && !this.loading ) {
         this.getPopularList(true)
       }
     },
