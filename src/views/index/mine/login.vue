@@ -5,10 +5,10 @@
       <!-- 已有账号登录 -->
       <van-tab title="美团账号登录">
        <div>
-          <form >
-            <input type="text" placeholder="账户名/手机号/Email" class='user' required name="username" v-model="useraccount">
-            <input type="password" placeholder="请输入您的密码" class='password' required name="password" v-model='password'>
-            <button class='login-btn' @click="handleLogin">登录</button>
+          <form>
+            <input type="text" placeholder="账户名/手机号/Email" class='user' required name="username" v-model="useraccount"  method="post">
+            <input type="password" placeholder="请输入您的密码" class='password' required name="password" v-model='password'  method="post">
+            <button class='login-btn' @click="handleLogin" >登录</button>
           </form>
         </div>
       </van-tab>
@@ -18,11 +18,11 @@
         <div>
           <form id="login">
             <div class="inputbox">
-              <input type="text" placeholder="请输入手机号" class='phones' required name="phone">
+              <input type="text" placeholder="请输入手机号" class='phones' required name="phone"  method="post">
               <button class="msg-btn">获取验证码</button>
             </div>
             <div class='msgbox'>
-              <input type="password" placeholder="请输入短信验证码"  required name="phonemsg" class="msg">
+              <input type="password" placeholder="请输入短信验证码"  required  method="post" name="phonemsg" class="msg">
             </div>
             <button class='login-btn'>登录</button>
           </form>
@@ -34,7 +34,7 @@
     <!-- 底部 -->
      <ul class="subline">
         <li><router-link to="/mine/signup">立即注册</router-link></li>
-        <li class="pull-right"><a href="https://passport.meituan.com/useraccount/retrievepassword">找回密码</a></li>
+        <li class="pull-right"><a href="#">找回密码</a></li>
     </ul>
   </div>
 </template>
@@ -51,14 +51,20 @@ export default {
   },
 
   methods: {
-    handleLogin () {
+    handleLogin (e) {
+      e.preventDefault()
+      e.target.required = false
+      e.target.style.backgroundColor = '#ccc'
+      e.target.innerHTML = '登录中...'
       setTimeout(() => {
         let userInfo = {
-          useraccount: useraccount,
-          password: password
+          useraccount: this.useraccount,
+          password: this.password
         }
-        console.log(111)
         window.localStorage.setItem('userInfo', JSON.stringify(userInfo))
+        this.$router.replace('/account')
+
+        console.log(e.target)
       }, 2000)
     }
   }

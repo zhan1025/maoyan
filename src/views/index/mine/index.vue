@@ -3,9 +3,9 @@
 <!-- 头部 -->
      <header class="navbar">
       <div class="nav-wrap-left">
-        <router-link class="back" to="/film">
+        <p class="back" to="/film" @click="toLast">
           <i class="iconfont icon-arrow-left"></i>
-        </router-link>
+        </p>
       </div>
       <h1 class="nav-header"> 猫眼电影 </h1>
     </header>
@@ -22,6 +22,16 @@
     </footer>
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    toLast () {
+      this.$router.go(-1)
+    }
+  }
+
+}
+</script>
 
 <style lang="less" scoped>
 // 头部布局

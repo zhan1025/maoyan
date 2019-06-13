@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -17,6 +17,14 @@ export default new Router({
           path: 'cinema',
           name: 'cinema',
           component: () => import('@/views/index/cinema.vue')
+        },
+        {
+          path: 'account',
+          name: 'account',
+          component: () => import('@/views/index/account.vue'),
+          meta: {
+            requireLogin: true
+          }
         },
         {
           path: '',
@@ -56,6 +64,26 @@ export default new Router({
         next()
       },
       component: () => import('@/views/search/index.vue')
-    }
-  ]
+    }]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireLogin) {
+    if (window.localStorage.getItem('userInfo')) {
+      if (to.path === '/mine/login') {
+        console.log(to)
+        router.push('/account')
+      }
+      next()
+    } else {
+      // console.log(to)
+      next({
+        path: '/mine/login'
+      })
+    }
+  } else {
+    next()
+  } 
+})
+
+export default router
