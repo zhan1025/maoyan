@@ -18,11 +18,11 @@
         <span class="distance">{{item.distance}}</span>
       </div>
       <div class="tags">
-        <span class="tui" v-if="item.tag.allowRefund">退</span>
-        <span class="tui" v-if="item.tag.endorse">改签</span>
+        <span v-if="item.tag.allowRefund">退</span>
+        <span v-if="item.tag.endorse">改签</span>
         <span class="snack" v-if="item.tag.snack">小吃</span>
         <span class="snack" v-if="item.tag.vipTag">折扣卡</span>
-        <span class="tui"
+        <span
         v-for="hall in item.tag.hallType"
         :key="hall">
         {{hall}}
@@ -69,10 +69,11 @@ export default {
 
 <style lang="less" scoped>
   .line_ellipsis{
+    white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
   }
+  ::-webkit-scrollbar{ display: none}
   .cinema_list{
     flex: 1;
     overflow-y: auto;
@@ -82,7 +83,6 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-width: 382px;
       padding: 13px 15px 13px  0;
       border-bottom: 1px solid #e8e8e8;
       margin-left: 16px;
@@ -103,22 +103,20 @@ export default {
         align-content: center;
         justify-content: space-between;
         div{
-          min-width: 270px;
+          flex: 1;
           }
         .distance{
           flex: 0 1;
-          right: 15px;
         }
       }
       .tags{
+        flex: 1;
         span{
           display: inline-block;
           font-size:12px;
           padding: 2px;
-          margin-left: 2px;
+          margin: 2px 4px 0 0;
           border-radius: 2px;
-        }
-        .tui{
           color:#589DAF;
           border: 1px solid #589DAF;
         }

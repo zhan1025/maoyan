@@ -1,5 +1,5 @@
 <template>
-  <div class="search">
+<div class="search">
     <div class="header">
       <button
       @click="abolish"
@@ -11,7 +11,7 @@
         <span class="iconfont icon-search"></span>
         <input
         type="search"
-        placeholder="搜影院"
+        :placeholder="searchType"
         v-model.trim="kw"
         ref="search"
         >
@@ -22,21 +22,14 @@
       @click="abolish"
       >取消</div>
     </div>
-    <div class="content" v-if="searchResult.length" ref="content">
-      <h1>影院</h1>
-      <div class="Result">
-        <router-link
-        tag="div"
-        class="items"
-        v-for="item in searchResult"
-        :key="item.id"
-        to='/film'>
+  <div class="content"  ref="content">
+    <h1 v-if="cinemas.length">影院</h1>
+    <div class="Result">
+      <div>
+        <router-link tag="div" class="items" v-for="item in cinemas" :key="item.id" to='/film'>
           <div class="title line_ellipsis">
             {{item.nm}}
-            <span class="price">
-              {{item.sellPrice}}
-              <i>元起</i>
-            </span>
+            <span class="price">{{item.sellPrice}} <i>元起</i></span>
           </div>
           <div class="addr">
             <div class="line_ellipsis">{{item.addr}} </div>
@@ -44,37 +37,54 @@
           </div>
           <div class="tags">
             <span class="tui">座</span>
-            <span class="tui"
-            v-for="hall in item.hallType"
-            :key="hall">
+            <span class="tui" v-for="hall in item.hallType" :key="hall">
             {{hall}}
             </span>
             <span class="tui" v-if="item.allowRefund">退</span>
             <span class="tui" v-if="item.endorse">改签</span>
             <span class="snack" v-if="item.snack">小吃</span>
-            <span class="snack" v-if="item.vipTag">折扣卡</span>
+            <span class="snack" v-if="item.vipDesc">折扣卡</span>
           </div>
+        </router-link>
+        <router-link v-if="totalCinema >= 3" class="view" to="/" tag="div">
+          查看全部 {{totalCinema}} 家电影院
+        </router-link>
+      </div>
+
+      <div v-if="movies.length">
+        <movie :movies="movies"></movie>
+        <router-link v-if="totalMovie" class="view" to="/" tag="div" >
+          查看全部 {{totalMovie}} 部影视剧
         </router-link>
       </div>
     </div>
-    <div class="nothing" v-if="show">
-      <img src="@/assets/nothing.png" alt="">
-      <p>没有找到相关影院</p>
-    </div>
   </div>
+  <div class="nothing" v-if="show">
+    <img src="@/assets/nothing.png" alt="">
+    <p>没有找到相关内容</p>
+  </div>
+</div>
 </template>
 
 <script>
+import movie from '@/components/searchMovieList.vue'
 import { mapActions, mapState, mapMutations } from 'vuex'
 export default {
-  name: 'serach',
+  name: 'search',
   data () {
     return {
       kw: '',
-      show: false
+      show: false,
+      searchType: '',
+      cinemas: [],
+      movies: [],
+      totalCinema: 0,
+      totalMovie: 0
     }
   },
-
+  components: {
+    movie
+  },
   computed: {
     ...mapState('search', ['searchResult'])
   },
@@ -89,19 +99,57 @@ export default {
       clearTimeout(this.timer)
       if (newVal.length !== 0) {
         this.timer = setTimeout(() => {
-          this.searchCinema(newVal)
+          let type = this.$route.query.searchType
+          let parmas = { newVal, type }
+          this.searchCinema(parmas)
         }, 100)
       }
     },
+    //  数据二次计算
     searchResult (newVal, oldVal) {
-      if (newVal.length === 0) {
+      if (Object.keys(newVal).length === 0) {
         // 搜索不到数据显示，显示没有数据dom
         this.show = true
+        this.cinemas = []
+        this.movies = []
+        this.totalCinema = 0
+        this.totalMovie = 0
         if (this.kw.length === 0) {
           this.show = false
         }
       } else {
         this.show = false
+        //  判断搜素类型，写入不同数据
+        if (this.$route.query.searchType === 'cinema') {
+          this.cinemas = newVal.cinemas.list.slice(0, 3)
+          this.totalCinema = newVal.cinemas.total
+        } else if (newVal.cinemas) {
+          //  写入计算后的影院数据
+          this.cinemas = newVal.cinemas.list.slice(0, 3)
+          this.totalCinema = newVal.cinemas.total
+          //  写入计算后的影片数据
+          this.movies = newVal.movies.list.map(item => {
+            return {
+              ...item,
+              img: item.img.replace('w.h', '128.180')
+            }
+          })
+          this.totalMovie = newVal.movies.total
+        } else if (newVal.hot) {
+          this.show = true
+          this.cinemas = []
+          this.movies = []
+          this.totalCinema = 0
+          this.totalMovie = 0
+        } else {
+          this.movies = newVal.movies.list.map(item => {
+            return {
+              ...item,
+              img: item.img.replace('w.h', '128.180')
+            }
+          })
+          this.totalMovie = newVal.movies.total
+        }
       }
     }
   },
@@ -118,14 +166,38 @@ export default {
     //   this.$refs.search.value = ''
     // }`
   },
-
   destroyed () {
     this.clear()
+  },
+  created () {
+    if (this.$route.query.searchType === 'cinema') {
+      this.searchType = '搜影院'
+    } else {
+      this.searchType = '搜电影、搜影院'
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
+.view{
+    display: flex;
+    flex: 1;
+    height: 44px;
+    justify-content: center;
+    align-items: center;
+    color: #EF4238;
+    font-size: 15px;
+    border-bottom: 2px solid #e5e5e5;
+    border-top: 2px solid #e5e5e5;
+    border-radius: 2px;
+  }
+.line_ellipsis{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  ::-webkit-scrollbar{ display: none}
 .search{
   display: flex;
   height: 100%;
@@ -245,7 +317,6 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        min-width: 382px;
         padding: 13px 15px 13px  0;
         margin-left: 16px;
         border-bottom: 1px solid #e8e8e8;
@@ -266,11 +337,10 @@ export default {
           align-content: center;
           justify-content: space-between;
           div{
-            min-width: 270px;
+            flex: 1;
             }
           .distance{
             flex: 0 1;
-            right: 15px;
           }
         }
         .tags{
@@ -278,10 +348,8 @@ export default {
             display: inline-block;
             font-size:12px;
             padding: 2px;
-            margin-left: 2px;
+            margin: 2px 4px 0 0;
             border-radius: 2px;
-          }
-          .tui{
             color:#589DAF;
             border: 1px solid #589DAF;
           }
