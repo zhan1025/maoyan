@@ -16,7 +16,16 @@
         <router-link tag="div" active-class="tab-active" class="hot-item" :abc="active" to="/film/coming">即将上映
         </router-link>
       </div>
-      <div class="search-entry iconfont icon-search"></div>
+      <router-link
+      tag="div"
+      :to="{
+        path: '/search',
+        query: {
+          searchtype: 'movie'
+        }
+      }"
+      class="search-entry iconfont icon-search"
+      ></router-link>
     </div>
     <keep-alive include="nowPlaying,comingSoon">
       <router-view
@@ -32,6 +41,7 @@
 import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
+  name: 'film',
   data () {
     return {
       active: 0
@@ -57,12 +67,6 @@ export default {
   // },
   beforeDestroy () {
     this.SETPAGENUM(true)
-  },
-  activated () {
-    console.log('11111')
-  },
-  deactivated () {
-    console.log(2222222)
   }
 }
 </script>

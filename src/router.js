@@ -67,6 +67,11 @@ const router = new Router({
       }]
     },
     {
+      path: '/detail/:id',
+      name: 'detail',
+      component: () => import('@/views/filmDetail/index.vue')
+    },
+    {
       path: '/city',
       name: 'city',
       component: () => import('@/views/city/index.vue')

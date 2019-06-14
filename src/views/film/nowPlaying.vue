@@ -3,7 +3,18 @@
 <template>
 <div class="now-playing">
   <ul class="film-list">
-    <li class="film-item" v-for="film in filmList" :key="film.id">
+    <router-link
+    class="film-item"
+    v-for="film in filmList"
+    :key="film.id"
+    tag="li"
+    :to="{
+      name: 'detail',
+      params: {
+        id: film.id
+      }
+    }"
+    >
       <img class="film-img" :src="film.img" alt="">
       <div class="film-info">
         <h2>{{ film.nm }}</h2>
@@ -18,7 +29,7 @@
       <div class="buy" v-else >
         <span class="buy-btn reserve">预购</span>
       </div>
-    </li>
+    </router-link>
   </ul>
 </div>
 </template>
@@ -60,13 +71,11 @@ export default {
   },
   // 该组件激活监听滚动条
   activated () {
-    console.log('nowPlaying激活')
     this.filmListEl = document.querySelector('.film-list')
     this.filmListEl.addEventListener('scroll', this.onScroll)
   },
   // 该组件失活清除监听滚动条事件
   deactivated () {
-    console.log('nowPlaying失活')
     this.filmListEl.removeEventListener('scroll', this.onScroll)
   }
 }

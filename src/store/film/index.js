@@ -15,7 +15,9 @@ export default {
     popularList: [], // 最受欢迎的影片数据
     popularPaging: {}, // 最受欢迎影片请求数据的参数
     expectedList: [], // 预售影片数据
-    expectedMovieIds: [] // 预售影片请求数据的id
+    expectNum: 1, // 预售影片的页码数
+    expectedMovieIds: [], // 预售影片请求数据的id
+    movieDetail: {} // 电影详情数据
   },
   getters: {
     // 处理数据图片地址
@@ -59,6 +61,13 @@ export default {
       })
       return result
     }
+    // 处理详情页电影数据
+    // newMovieDetail (state) {
+    //   return {
+    //     ...state.movieDetail,
+    //     img: state.movieDetail.img.replace('w.h', '120.180')
+    //   }
+    // }
   },
   mutations: {
     // 设置filmList 数据
@@ -105,6 +114,18 @@ export default {
     // 设置预售影片请求数据的id
     SEREXPECTEDMOVIESID (state, list) {
       state.expectedMovieIds = list
+    },
+    // 设置预售影片的页码数
+    SETEXPECTEDNUM (state, isReset) {
+      if (isReset) {
+        state.expectNum = 1
+      } else {
+        state.expectNum += 1
+      }
+    },
+    // 设置电影详情数据
+    SETMOVIEDETAIL (state, list) {
+      state.movieDetail = list
     }
   },
   actions: {
@@ -118,18 +139,22 @@ export default {
       let arr = state.movieIds.slice(12 + (state.pageNum - 2) * state.pageSize, 12 + (state.pageNum - 1) * state.pageSize)
       let obj = arr.join(',')
       if (isLoadMore) {
-        axios.get('http://localhost:9090/ajax/moreComingList', {
-          params: {
-            token: '',
-            movieIds: obj
-          }
-        }).then(res => {
-          let newList = [ ...state.filmList, ...res.data.coming ]
-          commit('SETFILMLIST', newList)
-          commit('SETPAGENUM')
-          commit('SETLOADING', false)
-          Toast.clear()
-        })
+        if (arr.length > 0) {
+          axios.get('http://localhost:9090/ajax/moreComingList', {
+            params: {
+              token: '',
+              movieIds: obj
+            }
+          }).then(res => {
+            let newList = [ ...state.filmList, ...res.data.coming ]
+            commit('SETFILMLIST', newList)
+            commit('SETPAGENUM')
+            commit('SETLOADING', false)
+            Toast.clear()
+          })
+        } else {
+          Toast('兄弟，到底了')
+        }
       } else {
         axios.get('http://localhost:9090/ajax/movieOnInfoList?token=')
           .then(response => {
@@ -182,7 +207,7 @@ export default {
         duration: 0, // 展示时长(ms)，值为 0 时，toast 不会消失
         message: '玩命加载中...'
       })
-      let arr = state.expectedMovieIds.slice((state.pageNum - 1) * state.pageSize, state.pageNum * state.pageSize)
+      let arr = state.expectedMovieIds.slice((state.expectNum - 1) * state.pageSize, state.expectNum * state.pageSize)
       let obj = arr.join(',')
       if (isLoadMore) {
         if (arr.length > 0) {
@@ -196,7 +221,7 @@ export default {
           }).then(res => {
             let newList = [ ...state.expectedList, ...res.data.coming ]
             commit('SETEXPECTEDLIST', newList)
-            commit('SETPAGENUM')
+            commit('SETEXPECTEDNUM')
             commit('SETLOADING', false)
             Toast.clear()
           })
@@ -211,7 +236,7 @@ export default {
             // 请求完成 设置loading为false
             commit('SETLOADING', false)
             // 设置页码
-            commit('SETPAGENUM')
+            commit('SETEXPECTEDNUM')
             // 设置最多请求电影列表的总数
             commit('SETTOTAL', res.total)
             // 设置请求带过去的电影id
@@ -219,6 +244,26 @@ export default {
             Toast.clear()
           })
       }
+    },
+    // 获取详情页电影的数据
+    getMovieDetail ({ commit }, movieId) {
+      commit('SETLOADING', true)
+      Toast.loading({
+        duration: 0, // 展示时长(ms)，值为 0 时，toast 不会消失
+        message: '玩命加载中...'
+      })
+      axios.get('http://localhost:9090/ajax/detailmovie', {
+        params: {
+          movieId: movieId
+        }
+      }).then(res => {
+        Toast.clear()
+        let newMovie = {
+          ...res.data.detailMovie,
+          img: res.data.detailMovie.img.replace('w.h', '120.180')
+        }
+        commit('SETMOVIEDETAIL', newMovie)
+      })
     }
     // 影片类型切换
     // filmTypeChange ({ commit, dispatch }, index) {
