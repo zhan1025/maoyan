@@ -262,6 +262,7 @@ export default {
           ...res.data.detailMovie,
           img: res.data.detailMovie.img.replace('w.h', '120.180')
         }
+        commit('SETLOADING', false)
         commit('SETMOVIEDETAIL', newMovie)
       })
     }

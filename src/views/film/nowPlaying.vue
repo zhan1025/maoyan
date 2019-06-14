@@ -51,11 +51,13 @@ export default {
     ...mapActions('film', ['getFilmList']),
     // 滚动条监听事件
     onScroll () {
+      // console.log('os')
       // 判断滚动条是否已经到底部
       // this.filmListEl = document.querySelector('.van-tabs__content')
       let scrollTop = this.filmListEl.scrollTop // 滚动条距离顶部的距离
       let clientHeight = this.filmListEl.clientHeight // 当前页面的可视高度
       let scrollHeight = this.filmListEl.scrollHeight // 当前页面的总高度
+      // console.log(this.loading)
       if (scrollHeight - clientHeight - scrollTop <= 50 && !this.loading) {
         if (this.newFilmList.length >= this.total) {
           Toast('兄弟，到底了')
@@ -71,11 +73,14 @@ export default {
   },
   // 该组件激活监听滚动条
   activated () {
+    // console.log('now1')
     this.filmListEl = document.querySelector('.film-list')
+    // console.log(this.filmListEl)
     this.filmListEl.addEventListener('scroll', this.onScroll)
   },
   // 该组件失活清除监听滚动条事件
   deactivated () {
+    // console.log('now2')
     this.filmListEl.removeEventListener('scroll', this.onScroll)
   }
 }
