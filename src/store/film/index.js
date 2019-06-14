@@ -140,7 +140,7 @@ export default {
       let obj = arr.join(',')
       if (isLoadMore) {
         if (arr.length > 0) {
-          axios.get('http://localhost:9090/ajax/moreComingList', {
+          axios.get('/my/ajax/moreComingList', {
             params: {
               token: '',
               movieIds: obj
@@ -156,7 +156,7 @@ export default {
           Toast('兄弟，到底了')
         }
       } else {
-        axios.get('http://localhost:9090/ajax/movieOnInfoList?token=')
+        axios.get('/my/ajax/movieOnInfoList?token=')
           .then(response => {
             let res = response.data
             commit('SETFILMLIST', res.movieList)
@@ -176,7 +176,7 @@ export default {
     getPopularList ({ commit, state }, isLoadMore) {
       commit('SETLOADING', true)
       if (state.popularPaging.hasMore) {
-        axios.get('http://localhost:9090/ajax/mostExpected', {
+        axios.get('/my/ajax/mostExpected', {
           params: {
             ci: 30,
             limit: 10,
@@ -191,7 +191,7 @@ export default {
           commit('SETLOADING', false)
         })
       } else if (!isLoadMore) {
-        axios.get('http://localhost:9090/ajax/mostExpected?ci=30&limit=10&offset=0&token=')
+        axios.get('/my/ajax/mostExpected?ci=30&limit=10&offset=0&token=')
           .then(response => {
             let res = response.data
             commit('SETPOPULARLIST', res.coming)
@@ -211,7 +211,7 @@ export default {
       let obj = arr.join(',')
       if (isLoadMore) {
         if (arr.length > 0) {
-          axios.get('http://localhost:9090/ajax/moreComingList', {
+          axios.get('/my/ajax/moreComingList', {
             params: {
               ci: 30,
               token: '',
@@ -229,7 +229,7 @@ export default {
           Toast('你看个电影还想两年后看吗')
         }
       } else {
-        axios.get('http://localhost:9090/ajax/comingList?ci=30&token=&limit=10')
+        axios.get('/my/ajax/comingList?ci=30&token=&limit=10')
           .then(response => {
             let res = response.data
             commit('SETEXPECTEDLIST', res.coming)
@@ -252,7 +252,7 @@ export default {
         duration: 0, // 展示时长(ms)，值为 0 时，toast 不会消失
         message: '玩命加载中...'
       })
-      axios.get('http://localhost:9090/ajax/detailmovie', {
+      axios.get('/my/ajax/detailmovie', {
         params: {
           movieId: movieId
         }

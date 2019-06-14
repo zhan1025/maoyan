@@ -177,7 +177,7 @@ export default {
           font-size: 17px;
           color: #333;
           font-weight: 700;
-          padding-right: 5px;
+          padding: 2px 5px 4px 0;
           flex-shrink: 1;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -189,6 +189,9 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          &.score{
+            margin-top: 0;
+          }
           .grade{
             margin-left: 5px;
             font-weight: 700;

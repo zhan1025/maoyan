@@ -35,7 +35,7 @@ export default {
           duration: 0,
           message: '玩命加载中...'
         })
-        axios.get('http://localhost:9090/ajax/cinemaList', {
+        axios.get('/my/ajax/cinemaList', {
           params: {
             day: '2019-06-12',
             offset: offset || 0,

@@ -1,10 +1,14 @@
 module.exports = {
-  // publicPath: '/cateye/',
+  publicPath: '/cateye/',
   devServer: {
     port: 9090,
-    proxy: 'http://m.maoyan.com/'
-    // pathRewrite: {
-    //   '^my': ''
-    // }
+    proxy: {
+      '/my': {
+        target: 'http://m.maoyan.com/',
+        pathRewrite: {
+          '^/my': ''
+        }
+      }
+    }
   }
 }
