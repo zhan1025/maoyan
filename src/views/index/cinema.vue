@@ -15,7 +15,7 @@
           :to="{
             path:'/search',
             query: {
-              searchtype: 'cinema'
+              searchType: 'cinema'
             }
             }"
           class='search_btn'>

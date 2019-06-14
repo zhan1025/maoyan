@@ -1,6 +1,6 @@
 <template>
   <keep-alive
-  :include="['index', 'search']">
+  :include="['index']">
     <router-view></router-view>
   </keep-alive>
 </template>
