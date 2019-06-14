@@ -20,8 +20,8 @@
             <img class="film-img" :src="movie.img" alt="">
             <div class="film-info">
               <h2>{{ movie.nm }}</h2>
-              <p v-if="movie.sc">观众评<span class="grade">{{ movie.sc }}</span></p>
-              <p v-else><span class="grade wish">{{ movie.wish }}</span>人想看</p>
+              <p class="score" v-if="movie.sc">观众评<span class="grade">{{ movie.sc }}</span></p>
+              <p class="score" v-else><span class="grade wish">{{ movie.wish }}</span>人想看</p>
               <p class="actor" v-if="movie.star">主演: {{ movie.star }}</p>
               <p>{{ movie.showInfo }}</p>
             </div>

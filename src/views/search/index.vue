@@ -205,7 +205,7 @@ export default {
   background-color: #f5f5f5;
   .header{
       background: #e54847;
-      flex: 0 1 auto;
+      flex: 0 0 auto;
       display: flex;
       height: 50px;
       button{
@@ -255,7 +255,7 @@ export default {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #e5e5e5;
-    flex: 0 1 auto;
+    flex: 0 0 auto;
     box-sizing: border-box;
     height: 47px;
     padding: 8px 0 8px 10px;

@@ -17,7 +17,7 @@ export default {
   },
   actions: {
     searchCinema ({ commit }, payload) {
-      axios.get('http://localhost:9090/ajax/search', {
+      axios.get('/my/ajax/search', {
         params: {
           kw: payload.newVal,
           cityId: 30,
