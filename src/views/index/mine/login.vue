@@ -6,7 +6,7 @@
       <van-tab title="美团账号登录">
        <div>
           <form>
-            <input type="text" placeholder="账户名/手机号/Email" class='user' required name="username" v-model="useraccount"  method="post">
+            <input type="text" placeholder="账户名/手机号/Email" autocomplete="off" class='user' required name="username" v-model="useraccount"  method="post">
             <input type="password" placeholder="请输入您的密码" class='password' required name="password" v-model='password'  method="post">
             <button class='login-btn' @click="handleLogin" >登录</button>
           </form>

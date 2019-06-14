@@ -173,6 +173,7 @@ export default {
         padding-right: 60px;
         overflow: hidden;
         h2{
+          line-height: 24px;
           font-size: 17px;
           color: #333;
           font-weight: 700;
