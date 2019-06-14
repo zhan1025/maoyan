@@ -44,7 +44,6 @@ export default {
     this.getCityList()
   },
   beforeRouteEnter (to, from, next) {
-    console.log(to, from)
     next()
   }
 }
