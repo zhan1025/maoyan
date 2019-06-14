@@ -47,11 +47,6 @@ export default {
     popularList: Array,
     expectedList: Array
   },
-  // watch: {
-  //   expectedList (newVal, oldVal) {
-  //     console.log(newVal)
-  //   }
-  // },
   computed: {
     ...mapState('film', ['loading', 'popularPaging', 'expectedMovieIds'])
   },
@@ -84,18 +79,17 @@ export default {
     this.getPopularList()
     this.getExpectedList()
   },
+  mounted () {
+    this.popularListEl = document.querySelector('.expected-list')
+    this.filmExpectedEl = document.querySelector('.film-expected')
+  },
   // 该组件激活监听滚动条
   activated () {
-    console.log('comingSoon激活')
-    this.popularListEl = document.querySelector('.expected-list')
     this.popularListEl.addEventListener('scroll', this.onPopularScroll)
-
-    this.filmExpectedEl = document.querySelector('.film-expected')
     this.filmExpectedEl.addEventListener('scroll', this.onExpectedScroll)
   },
   // 该组件失活清除监听滚动条事件
   deactivated () {
-    console.log('comingSoon失活')
     this.popularListEl.removeEventListener('scroll', this.onPopularScroll)
     this.filmExpectedEl.removeEventListener('scroll', this.onExpectedScroll)
   }
@@ -123,7 +117,8 @@ export default {
   }
   .expected-list{
     display: flex;
-    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
     white-space: nowrap;
     .expected-item{
       width: 85px;
