@@ -51,7 +51,6 @@ export default {
       letter: ''
     }
   },
-
   watch: {
     letter () {
       if (this.letter) {
