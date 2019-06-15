@@ -85,11 +85,13 @@ export default {
   },
   // 该组件激活监听滚动条
   activated () {
+    // console.log('组件激活')
     this.popularListEl.addEventListener('scroll', this.onPopularScroll)
     this.filmExpectedEl.addEventListener('scroll', this.onExpectedScroll)
   },
   // 该组件失活清除监听滚动条事件
   deactivated () {
+    // console.log('组件失活')
     this.popularListEl.removeEventListener('scroll', this.onPopularScroll)
     this.filmExpectedEl.removeEventListener('scroll', this.onExpectedScroll)
   }

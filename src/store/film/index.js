@@ -154,6 +154,7 @@ export default {
           })
         } else {
           Toast('兄弟，到底了')
+          commit('SETLOADING', false)
         }
       } else {
         axios.get('/my/ajax/movieOnInfoList?token=')
@@ -227,6 +228,7 @@ export default {
           })
         } else {
           Toast('你看个电影还想两年后看吗')
+          commit('SETLOADING', false)
         }
       } else {
         axios.get('/my/ajax/comingList?ci=30&token=&limit=10')
@@ -262,6 +264,7 @@ export default {
           ...res.data.detailMovie,
           img: res.data.detailMovie.img.replace('w.h', '120.180')
         }
+        commit('SETLOADING', false)
         commit('SETMOVIEDETAIL', newMovie)
       })
     }
