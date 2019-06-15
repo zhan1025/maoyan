@@ -1,7 +1,7 @@
 <template>
   <div class="page-city">
     <div class="city-title">
-      <router-link to='/film' tag="i" class="iconfont icon-left"></router-link>
+      <i   class="iconfont icon-left" @click="lastpage"></i>
       <h5 >当前城市-</h5>
     </div>
     <div class="city-list">
@@ -19,7 +19,11 @@ import clist from '@/components/city/clist.vue'
 export default {
 
   name: 'city',
-
+  // data(){
+  //   return {
+  //     lastpage:''
+  //   }
+  // },
   components: {
     cAlphabet,
     clist
@@ -30,14 +34,16 @@ export default {
   },
 
   methods: {
-    ...mapActions('city', ['getCityList'])
+    ...mapActions('city', ['getCityList']),
+    lastpage () {
+      this.$router.go(-1)
+    }
   },
 
   created () {
     this.getCityList()
   },
   beforeRouteEnter (to, from, next) {
-    console.log(to, from)
     next()
   }
 }

@@ -7,7 +7,6 @@
       <p><i class="iconfont icon-right"></i></p>
       <p>设置密码</p>
     </div>
-
      <div class='regbox'>
       <input type="text" placeholder="请输入您的手机号"  required name="phonemsg" class="newphone">
      </div>
@@ -27,7 +26,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 // 短信验证码输入框
 .regbox{
   width:100%;
@@ -85,66 +83,3 @@ export default {
   color: #999;
 }
 </style>
-
-// // 头部布局
-// .navbar {
-//     display:flex;
-//     height:50px;
-//     width:100%;
-//     color: #fff;
-//     background: #df2d2d;
-//     border-bottom: 1px solid #bc1d1d;
-//     line-height:50px;
-//     position: relative;
-//     .nav-header{
-//       flex:1;
-//       font-size: 18px;
-//       font-weight: lighter;
-//       text-align: center;
-//     };
-//    .nav-wrap-left {
-//       height: 100%;
-//       .back {
-//       height:100%;
-//       width: 50px;
-//       line-height: 50px;
-//       display: block;
-//       color: inherit;
-//       text-align: center;
-//       .icon-arrow-left{
-//         font-size:20px;
-//       };
-//       }
-//     };
-// }
-
-// // 插件样式修改
-// .van-tabs{
-//   display:flex;
-//   width:100%;
-// }
-
-// // 底部统一样式
-// .subline {
-//   display:flex;
-//   width:96%;
-//   padding: 2%;
-//   justify-content: space-between;
-//   a{
-//     color: #df2d2d;
-//     text-decoration: none;
-//     outline: 0;
-//     }
-// }
-
-// footer {
-//   display: flex;
-//   justify-content: center;
-//   margin-top: 3%;
-//   background-color: #f8f8f8;
-//   a{
-//     color: #df2d2d;
-//     text-decoration: none;
-//     outline: 0;
-//     }
-// }

@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -11,7 +11,23 @@ export default new Router({
       children: [
         {
           path: 'film',
-          component: () => import('@/views/index/film.vue')
+          component: () => import('@/views/index/film.vue'),
+          children: [
+            {
+              path: 'now',
+              name: 'newPlaying',
+              component: () => import('@/views/film/nowPlaying.vue')
+            },
+            {
+              path: 'coming',
+              name: 'comingSoon',
+              component: () => import('@/views/film/comingSoon.vue')
+            },
+            {
+              path: '',
+              redirect: 'now'
+            }
+          ]
         },
         {
           path: 'cinema',
@@ -19,8 +35,16 @@ export default new Router({
           component: () => import('@/views/index/cinema.vue')
         },
         {
+          path: 'account',
+          name: 'account',
+          component: () => import('@/views/index/account.vue'),
+          meta: {
+            requireLogin: true
+          }
+        },
+        {
           path: '',
-          redirect: '/film'
+          redirect: '/film/now'
         }
       ]
     },
@@ -43,6 +67,11 @@ export default new Router({
       }]
     },
     {
+      path: '/detail/:id',
+      name: 'detail',
+      component: () => import('@/views/filmDetail/index.vue')
+    },
+    {
       path: '/city',
       name: 'city',
       component: () => import('@/views/city/index.vue')
@@ -51,11 +80,31 @@ export default new Router({
       path: '/search',
       name: 'search',
       props: true,
-      beforeEnter: (to, from, next) => {
-        console.log(to, from)
-        next()
-      },
       component: () => import('@/views/search/index.vue')
-    }
-  ]
+    }],
+  // 控制滚动行为
+  scrollBehavior (to, from, savePosition) {
+    return { x: 0, y: 0 }
+  }
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireLogin) {
+    if (window.localStorage.getItem('userInfo')) {
+      if (to.path === '/mine/login') {
+        console.log(to)
+        router.push('/account')
+      }
+      next()
+    } else {
+      // console.log(to)
+      next({
+        path: '/mine/login'
+      })
+    }
+  } else {
+    next()
+  }
+})
+
+export default router

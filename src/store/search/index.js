@@ -3,30 +3,29 @@ import axios from 'axios'
 export default {
   namespaced: 'search',
   state: {
-    searchResult: []
+    searchResult: {}
   },
   mutations: {
     //  设置搜索结果
     setResult (state, payload) {
       state.searchResult = payload
+    },
+    //  清空搜索数据
+    clear (state) {
+      state.searchResult = {}
     }
   },
   actions: {
-    searchCinema ({ commit }, kw) {
-      axios.get('http://localhost:9090/ajax/search', {
+    searchCinema ({ commit }, payload) {
+      axios.get('/my/ajax/search', {
         params: {
-          kw: kw,
+          kw: payload.newVal,
           cityId: 30,
-          stype: 2
+          stype: payload.type === 'cinema' ? 2 : -1
         }
       })
-        .then(res => res.data)
         .then(res => {
-          if (res) {
-            commit('setResult', res)
-          } else {
-            commit('setResult', res.cinemas.list)
-          }
+          commit('setResult', res.data)
         })
     }
   }
